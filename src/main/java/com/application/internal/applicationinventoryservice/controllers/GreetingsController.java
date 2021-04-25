@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.application.internal.applicationinventoryservice.databaseintegration.DBConfiguration;
+
 /**
  *
  * A sample greetings controller to return greeting text
  */
 @RestController
 public class GreetingsController {
+	
+	@Autowired
+	private DBConfiguration dbConfiguration;
     /**
      *
      * @param name the name to greet
@@ -33,8 +39,7 @@ public class GreetingsController {
     }
     
     private String retrieveValueFromDate(String id) throws Exception {
-    	String dbURL1 = "jdbc:postgresql://ec2-54-163-254-204.compute-1.amazonaws.com:5432/d7e4cpif9fb7ik?user=hrksltgzjcfprq&password=1485871a74d91617ed97e0b4ba565632002feb9f4b63bceeb3b0c0e88eb4541f&sslmode=require";
-		Connection conn = DriverManager.getConnection(dbURL1);
+    	Connection conn = dbConfiguration.retrieveDatabaseConnection();
 		Statement stmt = conn.createStatement();
 		String sql = "SELECT id,departmentname,departmentowner FROM department where id=" + Integer.parseInt(id);
 	    ResultSet rs = stmt.executeQuery(sql);
@@ -51,7 +56,9 @@ public class GreetingsController {
 	         System.out.print("ID: " + departmentId);
 	         System.out.print(", First: " + departmentname);
 	         System.out.println(", departmentowner: " + departmentowner);
-	      }
+	    }
+	    sql = "insert into department(id,departmentname,departmentowner) values(DEFAULT,'bank','department that deals with bank applications')";
+	    stmt.executeUpdate(sql);
 	    return "\ndepartmentId:" + departmentId + ", departmentname: " + departmentname  + ", departmentowner: " + departmentowner;
     }
 }
