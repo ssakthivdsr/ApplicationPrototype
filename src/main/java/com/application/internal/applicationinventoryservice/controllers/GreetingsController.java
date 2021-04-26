@@ -34,7 +34,7 @@ public class GreetingsController {
     }
     
     private RetrieveDepartmentTO retrieveValueFromDate(String id) throws Exception {
-    	return departmentDAO.retrieveDepartmentData(id);
+    	return departmentDAO.retrieveDepartmentData(Integer.parseInt(id));
     }
     
     @RequestMapping(value = "/storeDepartmentData/{departmentname}/{departmentowner}", method = RequestMethod.GET)
