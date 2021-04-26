@@ -5,10 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.internal.applicationinventoryservice.databaseintegration.DepartmentDAO;
+import com.application.internal.applicationinventoryservice.to.RetrieveDepartmentTO;
 
 /**
  *
@@ -25,13 +27,13 @@ public class GreetingsController {
      * @return greeting text
      * @throws Exception 
      */
-    @RequestMapping(value = "/retrieveDepartmentData/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/retrieveDepartmentData/{name}", method = RequestMethod.GET )
     @ResponseStatus(HttpStatus.OK)
-    public String retrieveDepartmentData(@PathVariable("name") String name) throws Exception {
-        return "Department details for departmentId:" + name + " is : " + retrieveValueFromDate(name);
+    public @ResponseBody RetrieveDepartmentTO  retrieveDepartmentData(@PathVariable("name") String name) throws Exception {
+        return  retrieveValueFromDate(name);
     }
     
-    private String retrieveValueFromDate(String id) throws Exception {
+    private RetrieveDepartmentTO retrieveValueFromDate(String id) throws Exception {
     	return departmentDAO.retrieveDepartmentData(id);
     }
     
