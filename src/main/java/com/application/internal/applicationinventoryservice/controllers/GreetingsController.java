@@ -2,6 +2,7 @@ package com.application.internal.applicationinventoryservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +30,7 @@ public class GreetingsController {
      */
     @RequestMapping(value = "/retrieveDepartmentData/{name}", method = RequestMethod.GET )
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
     public @ResponseBody RetrieveDepartmentTO  retrieveDepartmentData(@PathVariable("name") String name) throws Exception {
         return  retrieveValueFromDate(name);
     }
@@ -39,6 +41,7 @@ public class GreetingsController {
     
     @RequestMapping(value = "/storeDepartmentData/{departmentname}/{departmentowner}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
     public void storeDepartmentData(@PathVariable("departmentname") String departmentName,@PathVariable("departmentowner") String departmentOwner) throws Exception {
     	departmentDAO.storeDepartmentData(departmentName, departmentOwner);
     }
