@@ -1,6 +1,5 @@
 package com.application.internal.applicationinventoryservice.databaseintegration;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
+import com.application.internal.applicationinventoryservice.to.DepartmentTO;
 import com.application.internal.applicationinventoryservice.to.RetrieveDepartmentTO;
 
 @Component
@@ -37,6 +37,10 @@ public class DepartmentDAO {
 		params.put("departmentName", departmentName);
 		params.put("departmentOwner", departmentOwner);
 		template.update(sql, params);
+	}
+	
+	public void storeDepartmentDetails(DepartmentTO departmentTO) throws SQLException {
+		storeDepartmentData(departmentTO.getDepartmentName(), departmentTO.getDepartmentOwner());
 	}
 	
 //	public RetrieveDepartmentTO retrieveDepartmentData(String id) throws SQLException {
