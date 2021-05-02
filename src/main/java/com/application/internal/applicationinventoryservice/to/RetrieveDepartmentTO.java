@@ -3,6 +3,7 @@ package com.application.internal.applicationinventoryservice.to;
 public class RetrieveDepartmentTO {
 	private int id;
 	private String departmentName;
+	private String departmentOwner;
 	public int getId() {
 		return id;
 	}
@@ -21,6 +22,6 @@ public class RetrieveDepartmentTO {
 	public void setDepartmentOwner(String departmentOwner) {
 		this.departmentOwner = departmentOwner;
 	}
-	private String departmentOwner;
+	
 
 }

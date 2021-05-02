@@ -23,13 +23,14 @@ public class DataBaseConfig {
 		return DriverManager.getConnection(dburl);
 	}
 	
-	 @Bean
-	    public DataSource dataSource() {
-	        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	        dataSource.setDriverClassName("org.postgresql.Driver");
-	        dataSource.setUrl("jdbc:postgresql://ec2-54-163-254-204.compute-1.amazonaws.com:5432/d7e4cpif9fb7ik?sslmode=require");
-	        dataSource.setUsername(userName);
-	        dataSource.setPassword(cred);
-	        return dataSource;
-	    }
+	@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setUrl(
+				"jdbc:postgresql://ec2-54-163-254-204.compute-1.amazonaws.com:5432/d7e4cpif9fb7ik?sslmode=require");
+		dataSource.setUsername(userName);
+		dataSource.setPassword(cred);
+		return dataSource;
+	}
 }

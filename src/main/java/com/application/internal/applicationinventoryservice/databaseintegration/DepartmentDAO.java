@@ -2,6 +2,7 @@ package com.application.internal.applicationinventoryservice.databaseintegration
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -27,6 +28,13 @@ public class DepartmentDAO {
 		String query = "SELECT id,departmentname,departmentowner FROM department where id=:id";
 		SqlParameterSource param = new MapSqlParameterSource("id", id);
 		RetrieveDepartmentTO result = template.queryForObject(query, param, BeanPropertyRowMapper.newInstance(RetrieveDepartmentTO.class));
+		return result;
+	}
+	
+	public List<RetrieveDepartmentTO> retrieveAllDepartmentDetails() {
+		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+		String query = "SELECT id,departmentname,departmentowner FROM department";
+		List<RetrieveDepartmentTO> result = template.query(query, new BeanPropertyRowMapper(RetrieveDepartmentTO.class));
 		return result;
 	}
 	
