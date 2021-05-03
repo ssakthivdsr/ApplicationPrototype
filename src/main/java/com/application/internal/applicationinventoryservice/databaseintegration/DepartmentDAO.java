@@ -33,7 +33,7 @@ public class DepartmentDAO {
 	
 	public List<RetrieveDepartmentTO> retrieveAllDepartmentDetails() {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		String query = "SELECT id,departmentname,departmentowner FROM department";
+		String query = "SELECT id,departmentname,departmentowner FROM department ORDER BY Id desc";
 		List<RetrieveDepartmentTO> result = template.query(query, new BeanPropertyRowMapper(RetrieveDepartmentTO.class));
 		return result;
 	}
