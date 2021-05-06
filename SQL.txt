@@ -1,0 +1,208 @@
+CREATE SCHEMA assessment;
+//CREATE USER tcs with PASSWORD 'password';
+//GRANT ALL PRIVILEGES ON DATABASE 'assessment' to tcs;
+CREATE SEQUENCE assessment.line_of_business_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.function_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.user_type_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.lob_function_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.transaction_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.department_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_lob_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_function_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.business_partner_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_transaction_details_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_user_details_sequence;
+CREATE SEQUENCE assessment.application_additional_details_questions_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_additional_details_sequence START 1 INCREMENT 1;
+--------------------------------------------------------------------
+CREATE SEQUENCE assessment.regulatory_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_life_cycle_questions_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_life_cycle_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.service_management_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.service_management_questions_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.vendor_package_sequence START 1 INCREMENT 1;
+-----------------------------------------------------------------------
+
+CREATE TABLE assessment.line_of_business(
+    id integer DEFAULT nextval('assessment.line_of_business_sequence'),
+    lob VARCHAR(200) UNIQUE NOT NULL,
+        PRIMARY KEY(id)
+);
+
+CREATE TABLE assessment.function(
+    id integer DEFAULT nextval('assessment.function_sequence'),
+    name VARCHAR(200) NOT NULL,
+        PRIMARY KEY(id)
+);
+CREATE TABLE assessment.user_type(
+    id integer DEFAULT nextval('assessment.user_type_sequence'),
+    type VARCHAR(200) NOT NULL,
+        PRIMARY KEY(id)
+);
+CREATE TABLE assessment.lob_function(
+    id integer DEFAULT nextval('assessment.lob_function_sequence'),
+    lob_id integer,
+    function_id VARCHAR(200) NOT NULL,
+        PRIMARY KEY(id),
+        CONSTRAINT fk_lob_id FOREIGN KEY(lob_id) REFERENCES assessment.line_of_business(id)
+);
+CREATE TABLE assessment.transaction(
+    id integer DEFAULT nextval('assessment.transaction_sequence'),
+    function_id integer,
+    type VARCHAR(200) NOT NULL,
+        PRIMARY KEY(id),
+        CONSTRAINT fk_function_id FOREIGN KEY(function_id) REFERENCES assessment.function(id)
+);
+
+CREATE TABLE assessment.department (
+    id integer DEFAULT nextval('assessment.department_sequence'),
+        name VARCHAR(200) UNIQUE NOT NULL,
+        owner VARCHAR(200) NOT NULL,
+    PRIMARY KEY(id)
+);
+CREATE TABLE assessment.application (
+    id integer DEFAULT nextval('assessment.application_sequence'),
+        dept_id integer,
+        name VARCHAR(200) UNIQUE NOT NULL,
+        component_manager VARCHAR(200),
+        sme VARCHAR(200),
+        primary_tech_sme VARCHAR(200),
+        primary_ba VARCHAR(200),
+        PRIMARY KEY(id),
+    CONSTRAINT fk_dept_id FOREIGN KEY(dept_id) REFERENCES assessment.department(id)     
+);
+CREATE TABLE assessment.application_lob (
+    id integer DEFAULT nextval('assessment.application_lob_sequence'),
+        application_id integer,
+        lob_id integer,
+        PRIMARY KEY(id),
+    CONSTRAINT fk_app_lob_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id),
+        CONSTRAINT fk_app_lob_lob_id FOREIGN KEY(lob_id) REFERENCES assessment.line_of_business(id)    
+);
+
+
+CREATE TABLE assessment.application_function (
+    id integer DEFAULT nextval('assessment.application_function_sequence'),
+        application_id integer,
+        function_id integer,
+        PRIMARY KEY(id),
+    CONSTRAINT fk_app_function_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id),
+        CONSTRAINT fk_app_function_function_id FOREIGN KEY(function_id) REFERENCES assessment.function(id) 
+);
+
+CREATE TABLE assessment.business_partner (
+    id integer DEFAULT nextval('assessment.business_partner_sequence'),
+        application_id integer,
+        primary_business_partner VARCHAR(200),
+    secondary_business_partner VARCHAR(200),
+        managers VARCHAR(500),
+        directors VARCHAR(500), 
+        PRIMARY KEY(id),
+    CONSTRAINT fk_business_partner_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)
+);
+CREATE TABLE assessment.application_transaction_details (
+    id integer DEFAULT nextval('assessment.application_transaction_details_sequence'),
+        application_id integer,
+        transaction_type VARCHAR(200),
+    volume JSON, 
+        PRIMARY KEY(id),
+    CONSTRAINT fk_application_transaction_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)
+);
+
+
+CREATE TABLE assessment.application_user_details (
+    id integer DEFAULT nextval('assessment.application_user_details_sequence'),
+        application_id integer,
+        user_type VARCHAR(200),
+    volume JSON, 
+        PRIMARY KEY(id),
+    CONSTRAINT fk_application_user_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)
+);
+
+
+CREATE TABLE assessment.application_additional_details_questions (
+    id integer DEFAULT nextval('assessment.application_additional_details_questions_sequence'),
+        question VARCHAR(600),
+        PRIMARY KEY(id)
+);
+
+CREATE TABLE assessment.application_additional_details (
+    id integer DEFAULT nextval('assessment.application_additional_details_sequence'),
+        application_id integer,
+        question_id integer,
+        answer VARCHAR(600),
+        PRIMARY KEY(id),
+    CONSTRAINT fk_application_additional_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id),
+        CONSTRAINT fk_application_additional_question_id FOREIGN KEY(question_id) REFERENCES assessment.application_additional_details_questions(id)
+);
+
+----------------------------------------------------------------------------------------------
+CREATE TABLE assessment.regulatory_details (
+    id integer DEFAULT nextval('assessment.regulatory_sequence'),
+        application_id integer,
+        regulatory_value VARCHAR(600),
+        PRIMARY KEY(id),
+    CONSTRAINT fk_application_regulatory_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id),
+);
+
+
+
+CREATE TABLE assessment.application_life_cycle_questions (
+    id integer DEFAULT nextval('assessment.application_additional_details_questions_sequence'),
+        question VARCHAR(600),
+        PRIMARY KEY(id)
+);
+
+CREATE TABLE assessment.application_life_cycle (
+    id integer DEFAULT nextval('assessment.application_life_cycle_sequence'),
+        application_id integer,
+        question_id integer,
+        answer VARCHAR(600),
+        PRIMARY KEY(id),
+    CONSTRAINT fk_application_app_life_cycle_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id),
+        CONSTRAINT fk_application_app_life_cycle_app_id_question_id FOREIGN KEY(question_id) REFERENCES assessment.application_life_cycle_questions(id)
+);
+
+CREATE TABLE assessment.service_management_questions (
+    id integer DEFAULT nextval('assessment.service_management_questions_sequence'),
+        question VARCHAR(600),
+        PRIMARY KEY(id)
+);
+
+CREATE TABLE assessment.service_management (
+    id integer DEFAULT nextval('assessment.service_management_sequence'),
+        application_id integer,
+        question_id integer,
+        answer VARCHAR(600),
+        PRIMARY KEY(id),
+    CONSTRAINT fk_application_service_management_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id),
+        CONSTRAINT fk_application_service_management_app_id_question_id FOREIGN KEY(question_id) REFERENCES assessment.application_life_cycle_questions(id)
+);
+
+
+
+CREATE TABLE assessment.vendor_package_details (
+    id integer DEFAULT nextval('assessment.vendor_package_sequence'),
+        application_id integer,
+	eng_associated_managed_services VARCHAR{500),
+	package_type VARCHAR(100),
+	name VARCHAR(500),
+	eng_associated_with_vendor_package VARCHAR(500),
+	degree_of_customization VARCHAR(300),
+	hosted_location VARCHAR(300),
+	hosted_name VARCHAR(300),
+	eng_associated_with_esternally_hosted_vendor VARCHAR(500),
+	is_latest_sw_version boolean,
+	package_version VARCHAR(100),
+	frequency_of_updates VARCHAR(100),
+	frequency_of_patches VARCHAR(100),
+        PRIMARY KEY(id),
+    CONSTRAINT fk_application_vendor_package_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)
+);
+
+
+
+
+
+d7e4cpif9fb7ik
