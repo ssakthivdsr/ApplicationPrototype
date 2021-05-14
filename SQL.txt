@@ -193,7 +193,8 @@ CREATE TABLE assessment.service_management (
         answer VARCHAR(600),
         PRIMARY KEY(id),
     CONSTRAINT fk_application_service_management_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id),
-        CONSTRAINT fk_application_service_management_app_id_question_id FOREIGN KEY(question_id) REFERENCES assessment.application_life_cycle_questions(id)
+        //CONSTRAINT fk_application_service_management_app_id_question_id FOREIGN KEY(question_id) REFERENCES assessment.application_life_cycle_questions(id)
+		CONSTRAINT fk_application_service_management_app_id_question_id FOREIGN KEY(question_id) REFERENCES assessment.service_management_questions(id)
 );
 
 
