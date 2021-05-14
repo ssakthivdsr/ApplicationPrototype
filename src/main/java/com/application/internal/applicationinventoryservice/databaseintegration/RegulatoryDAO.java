@@ -2,6 +2,7 @@ package com.application.internal.applicationinventoryservice.databaseintegration
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -21,11 +22,19 @@ public class RegulatoryDAO {
 	@Autowired
 	private DataSource dataSource;
 	
-	public RegulatoryTO retrieveRegulatoryData(int id) {
+//	public RegulatoryTO retrieveRegulatoryData(int id) {
+//		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+//		String query = "SELECT id as regulatoryId, application_id AS applicationId, regulatory_value AS regulatoryValue FROM assessment.regulatory_details where id=:id";
+//		SqlParameterSource param = new MapSqlParameterSource("id", id);
+//		RegulatoryTO result = template.queryForObject(query, param, BeanPropertyRowMapper.newInstance(RegulatoryTO.class));
+//		return result;
+//	}
+	
+	public List<RegulatoryTO> retrieveRegulatoryData(int id) {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		String query = "SELECT id as regulatoryId, application_id AS applicationId, regulatory_value AS regulatoryValue FROM assessment.regulatory_details where id=:id";
+		String query = "SELECT id as regulatoryId, application_id AS applicationId,regulatory_value AS regulatoryValue FROM assessment.regulatory_details where application_id=:id";
 		SqlParameterSource param = new MapSqlParameterSource("id", id);
-		RegulatoryTO result = template.queryForObject(query, param, BeanPropertyRowMapper.newInstance(RegulatoryTO.class));
+		List<RegulatoryTO> result = template.query(query,param, new BeanPropertyRowMapper(RegulatoryTO.class));
 		return result;
 	}
 	
