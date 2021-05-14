@@ -126,11 +126,11 @@ public class GreetingsController {
     @RequestMapping(value = "/retrieveRegulatoryByApplicationId/{application_id}", method = RequestMethod.GET )
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin
-    public @ResponseBody RegulatoryTO  retrieveRegulatoryData(@PathVariable("application_id") String id) throws Exception {
+    public @ResponseBody List<RegulatoryTO>  retrieveRegulatoryData(@PathVariable("application_id") String id) throws Exception {
         return  retrieveRegulatoryValueByID(id);
     }
     
-    private RegulatoryTO retrieveRegulatoryValueByID(String id) throws Exception {
+    private List<RegulatoryTO> retrieveRegulatoryValueByID(String id) throws Exception {
     	return regulatoryDAO.retrieveRegulatoryData(Integer.parseInt(id));
     }
     
