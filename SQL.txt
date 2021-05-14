@@ -114,7 +114,6 @@ CREATE TABLE assessment.application_transaction_details (
     CONSTRAINT fk_application_transaction_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)
 );
 
-
 CREATE TABLE assessment.application_user_details (
     id integer DEFAULT nextval('assessment.application_user_details_sequence'),
         application_id integer,
