@@ -61,10 +61,14 @@ CREATE TABLE assessment.department (
         owner VARCHAR(200) NOT NULL,
     PRIMARY KEY(id)
 );
+
 CREATE TABLE assessment.application (
     id integer DEFAULT nextval('assessment.application_sequence'),
-        dept_id integer,
         name VARCHAR(200) UNIQUE NOT NULL,
+        descr VARCHAR(200),
+        dept_id integer,
+        lob VARCHAR(200),
+        func VARCHAR(200),
         component_manager VARCHAR(200),
         sme VARCHAR(200),
         primary_tech_sme VARCHAR(200),
@@ -143,7 +147,7 @@ CREATE TABLE assessment.regulatory_details (
         application_id integer,
         regulatory_value VARCHAR(600),
         PRIMARY KEY(id),
-    CONSTRAINT fk_application_regulatory_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id),
+    CONSTRAINT fk_application_regulatory_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)
 );
 
 
@@ -185,7 +189,7 @@ CREATE TABLE assessment.service_management (
 CREATE TABLE assessment.vendor_package_details (
     id integer DEFAULT nextval('assessment.vendor_package_sequence'),
         application_id integer,
-	eng_associated_managed_services VARCHAR{500),
+	eng_associated_managed_services VARCHAR(500),
 	package_type VARCHAR(100),
 	name VARCHAR(500),
 	eng_associated_with_vendor_package VARCHAR(500),
@@ -201,8 +205,4 @@ CREATE TABLE assessment.vendor_package_details (
     CONSTRAINT fk_application_vendor_package_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)
 );
 
-
-
-
-
-d7e4cpif9fb7ik
+//d7e4cpif9fb7ik
