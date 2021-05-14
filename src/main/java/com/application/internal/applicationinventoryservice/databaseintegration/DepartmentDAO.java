@@ -15,7 +15,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import com.application.internal.applicationinventoryservice.to.DepartmentTO;
-import com.application.internal.applicationinventoryservice.to.RetrieveDepartmentTO;
 
 @Component
 public class DepartmentDAO {
@@ -23,24 +22,24 @@ public class DepartmentDAO {
 	@Autowired
 	private DataSource dataSource;
 	
-	public RetrieveDepartmentTO retrieveDepartmentData(int id) {
+	public DepartmentTO retrieveDepartmentData(int id) {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		String query = "SELECT id,departmentname,departmentowner FROM department where id=:id";
+		String query = "SELECT id as departmentId, name as departmentName, owner as departmentOwner FROM assessment.department where id=:id";
 		SqlParameterSource param = new MapSqlParameterSource("id", id);
-		RetrieveDepartmentTO result = template.queryForObject(query, param, BeanPropertyRowMapper.newInstance(RetrieveDepartmentTO.class));
+		DepartmentTO result = template.queryForObject(query, param, BeanPropertyRowMapper.newInstance(DepartmentTO.class));
 		return result;
 	}
 	
-	public List<RetrieveDepartmentTO> retrieveAllDepartmentDetails() {
+	public List<DepartmentTO> retrieveAllDepartmentDetails() {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		String query = "SELECT id,departmentname,departmentowner FROM department ORDER BY Id desc";
-		List<RetrieveDepartmentTO> result = template.query(query, new BeanPropertyRowMapper(RetrieveDepartmentTO.class));
+		String query = "SELECT id as departmentId, name as departmentName, owner as departmentOwner FROM assessment.department order by id asc";
+		List<DepartmentTO> result = template.query(query, new BeanPropertyRowMapper(DepartmentTO.class));
 		return result;
 	}
 	
 	public void storeDepartmentData(String departmentName, String departmentOwner) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		String sql = "insert into department(id,departmentname,departmentowner) values(DEFAULT,:departmentName,:departmentOwner)";
+		String sql = "insert into assessment.department values(DEFAULT,:departmentName,:departmentOwner)";
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("departmentName", departmentName);
 		params.put("departmentOwner", departmentOwner);
