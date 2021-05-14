@@ -7,7 +7,7 @@ public class RegulatoryTO {
 	private int applicationId;
 	private List<String> regulatoryValue;
 	
-	public int getRegulartoryId() {
+	public int getRegulatoryId() {
 		return regulatoryId;
 	}
 	public void setRegulatoryId(int regulatoryId) {
