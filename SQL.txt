@@ -15,7 +15,6 @@ CREATE SEQUENCE assessment.application_transaction_details_sequence START 1 INCR
 CREATE SEQUENCE assessment.application_user_details_sequence;
 CREATE SEQUENCE assessment.application_additional_details_questions_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.application_additional_details_sequence START 1 INCREMENT 1;
---------------------------------------------------------------------
 CREATE SEQUENCE assessment.regulatory_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.application_life_cycle_questions_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.application_life_cycle_sequence START 1 INCREMENT 1;
@@ -202,7 +201,7 @@ CREATE TABLE assessment.service_management (
 CREATE TABLE assessment.vendor_package_details (
     id integer DEFAULT nextval('assessment.vendor_package_sequence'),
         application_id integer,
-	eng_associated_managed_services VARCHAR{500),
+	eng_associated_managed_services VARCHAR(500),
 	package_type VARCHAR(100),
 	name VARCHAR(500),
 	eng_associated_with_vendor_package VARCHAR(500),
