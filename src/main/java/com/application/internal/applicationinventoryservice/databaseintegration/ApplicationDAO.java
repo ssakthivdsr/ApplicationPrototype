@@ -36,7 +36,7 @@ public class ApplicationDAO {
 	
 	public void storeApplicationDetails(ApplicationTO applicationTO) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		String sql = "insert into assessment.application values(DEFAULT,:departmentId,:applicationName,:nameOfTheComponentManager,:smeProvidedByManagers,:nameOfPrimaryTechSME,:nameOfPrimaryBA,:applicationDescription,:lineOfBusiness,:functionality)";
+		String sql = "insert into assessment.application values(DEFAULT,:applicationName,:applicationDescription,:departmentId,:lineOfBusiness,:functionality,:nameOfTheComponentManager,:smeProvidedByManagers,:nameOfPrimaryTechSME,:nameOfPrimaryBA)";
 		Map params = new HashMap();
 		params.put("applicationName", applicationTO.getApplicationName());
 		params.put("applicationDescription", applicationTO.getApplicationDescription());
