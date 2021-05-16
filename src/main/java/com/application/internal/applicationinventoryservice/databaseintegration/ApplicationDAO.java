@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import com.application.internal.applicationinventoryservice.to.ApplicationTO;
 
@@ -34,20 +36,38 @@ public class ApplicationDAO {
 		return result;
 	}
 	
-	public void storeApplicationDetails(ApplicationTO applicationTO) throws SQLException {
+	public int storeApplicationDetails(ApplicationTO applicationTO) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+		KeyHolder holder = new GeneratedKeyHolder();
 		String sql = "insert into assessment.application values(DEFAULT,:applicationName,:applicationDescription,:departmentId,:lineOfBusiness,:functionality,:nameOfTheComponentManager,:smeProvidedByManagers,:nameOfPrimaryTechSME,:nameOfPrimaryBA)";
-		Map params = new HashMap();
-		params.put("applicationName", applicationTO.getApplicationName());
-		params.put("applicationDescription", applicationTO.getApplicationDescription());
-		params.put("departmentId", applicationTO.getDepartmentId());
-		params.put("lineOfBusiness", applicationTO.getLineOfBusiness());
-		params.put("functionality", applicationTO.getFunctionality());
-		params.put("nameOfTheComponentManager", applicationTO.getNameOfTheComponentManager());
-		params.put("smeProvidedByManagers", applicationTO.getSmeProvidedByManagers());
-		params.put("nameOfPrimaryTechSME", applicationTO.getNameOfPrimaryTechSME());
-		params.put("nameOfPrimaryBA", applicationTO.getNameOfPrimaryBA());
-		template.update(sql, params);
+		/*
+		 * Map params = new HashMap(); params.put("applicationName",
+		 * applicationTO.getApplicationName()); params.put("applicationDescription",
+		 * applicationTO.getApplicationDescription()); params.put("departmentId",
+		 * applicationTO.getDepartmentId()); params.put("lineOfBusiness",
+		 * applicationTO.getLineOfBusiness()); params.put("functionality",
+		 * applicationTO.getFunctionality()); params.put("nameOfTheComponentManager",
+		 * applicationTO.getNameOfTheComponentManager());
+		 * params.put("smeProvidedByManagers",
+		 * applicationTO.getSmeProvidedByManagers()); params.put("nameOfPrimaryTechSME",
+		 * applicationTO.getNameOfPrimaryTechSME()); params.put("nameOfPrimaryBA",
+		 * applicationTO.getNameOfPrimaryBA());
+		 */
+//		template.update(sql, params);
+		
+		SqlParameterSource parameters = new MapSqlParameterSource()
+				.addValue("applicationName", applicationTO.getApplicationName())
+				.addValue("applicationDescription", applicationTO.getApplicationDescription())
+				.addValue("departmentId", applicationTO.getDepartmentId())
+				.addValue("lineOfBusiness", applicationTO.getLineOfBusiness())
+				.addValue("functionality", applicationTO.getFunctionality())
+				.addValue("nameOfTheComponentManager", applicationTO.getNameOfTheComponentManager())
+				.addValue("smeProvidedByManagers", applicationTO.getSmeProvidedByManagers())
+				.addValue("nameOfPrimaryTechSME", applicationTO.getNameOfPrimaryTechSME())
+				.addValue("nameOfPrimaryBA", applicationTO.getNameOfPrimaryBA());
+		String[] fields = {"id"};
+		template.update(sql, parameters,holder,fields);
+		return holder.getKey().intValue();
 	}
 }
 

@@ -103,8 +103,8 @@ public class GreetingsController {
 	@PostMapping("/storeApplicationDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void storeApplicationDetails(@RequestBody ApplicationTO applicationTO) throws Exception {
-		applicationDAO.storeApplicationDetails(applicationTO);
+	public @ResponseBody int storeApplicationDetails(@RequestBody ApplicationTO applicationTO) throws Exception {
+		return applicationDAO.storeApplicationDetails(applicationTO);
 	}
 
 	@RequestMapping(value = "/retrieveBusinessPartnerByApplicationId/{application_id}", method = RequestMethod.GET)
