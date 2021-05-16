@@ -33,7 +33,7 @@ public class RegulatoryDAO {
 	public void storeRegulatoryDetails(RegulatoryTO regulatoryTO) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		if(regulatoryTO.getRegulatoryValue().size()!=0) {
-			String deleteSql = "delete from  assessment.regulatory_details where id=:id";
+			String deleteSql = "delete from  assessment.regulatory_details where application_id=:id";
 			SqlParameterSource param = new MapSqlParameterSource("id", regulatoryTO.getApplicationId());
 			template.update(deleteSql, param);
 			String sql = "insert into assessment.regulatory_details values(DEFAULT,:applicationId,:regulatoryValue)";
