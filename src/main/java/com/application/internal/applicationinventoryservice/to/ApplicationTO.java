@@ -3,6 +3,7 @@ package com.application.internal.applicationinventoryservice.to;
 public class ApplicationTO {
 	private int applicationId;
 	private int departmentId;
+	private String departmentName;
     private String applicationName;
     private String nameOfTheComponentManager;
     private String smeProvidedByManagers;
@@ -23,6 +24,12 @@ public class ApplicationTO {
 	}
 	public void setDepartmentId(int departmentId) {
 		this.departmentId = departmentId;
+	}
+	public String getDepartmentName() {
+		return departmentName;
+	}
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 	public String getApplicationName() {
 		return applicationName;

@@ -31,7 +31,14 @@ public class ApplicationDAO {
 	
 	public List<ApplicationTO> retrieveAllApplicationDetails() {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		String query = "SELECT id as applicationId, dept_id as departmentId, name as applicationName, component_manager as nameOfTheComponentManager, sme as smeProvidedByManagers, primary_tech_sme as nameOfPrimaryTechSME, primary_ba as nameOfPrimaryBA, descr as applicationDescription, lob as lineOfBusiness, func as functionality FROM assessment.application order by id asc";
+//		String query = "SELECT id as applicationId, dept_id as departmentId, name as applicationName, component_manager as nameOfTheComponentManager, sme as smeProvidedByManagers, primary_tech_sme as nameOfPrimaryTechSME, primary_ba as nameOfPrimaryBA, descr as applicationDescription, lob as lineOfBusiness, func as functionality FROM assessment.application order by id asc";
+		String query = "SELECT \r\n"
+				+ "	a.id as applicationId, a.dept_id as departmentId, d.name as departmentName, a.name as applicationName, \r\n"
+				+ "	a.component_manager as nameOfTheComponentManager, a.sme as smeProvidedByManagers, a.primary_tech_sme as nameOfPrimaryTechSME, \r\n"
+				+ "	a.primary_ba as nameOfPrimaryBA, 	a.descr as applicationDescription, lob as lineOfBusiness, func as functionality \r\n"
+				+ "	FROM assessment.application as a,assessment.department as d\r\n"
+				+ "	where a.dept_id = d.id\r\n"
+				+ "	order by a.id asc";
 		List<ApplicationTO> result = template.query(query, new BeanPropertyRowMapper(ApplicationTO.class));
 		return result;
 	}
