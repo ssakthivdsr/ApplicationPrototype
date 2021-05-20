@@ -38,7 +38,7 @@ public class ServiceManagementDAO {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String sql = "insert into assessment.service_management values(DEFAULT,:applicationId,:questionId,:answer)";
 		// Total 47 questions in service management questions table
-		for (int i = 0; i <= 46; i++) {
+		for (int i = 0; i < 47; i++) {
 			Map params = new HashMap();
 			params.put("applicationId", serviceManagementTO.getApplicationId());
 			params.put("questionId", serviceManagementTO.questionAnswer[i].getQuestionId());
