@@ -15,14 +15,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.internal.applicationinventoryservice.databaseintegration.ApplicationDAO;
+import com.application.internal.applicationinventoryservice.databaseintegration.ApplicationLifecycleDAO;
 import com.application.internal.applicationinventoryservice.databaseintegration.BusinessPartnerDAO;
 import com.application.internal.applicationinventoryservice.databaseintegration.DepartmentDAO;
 import com.application.internal.applicationinventoryservice.databaseintegration.RegulatoryDAO;
+import com.application.internal.applicationinventoryservice.databaseintegration.ServiceManagementDAO;
 import com.application.internal.applicationinventoryservice.databaseintegration.VendorPackageDAO;
+import com.application.internal.applicationinventoryservice.to.ApplicationLifecycleRetrieveTO;
+import com.application.internal.applicationinventoryservice.to.ApplicationLifecycleTO;
 import com.application.internal.applicationinventoryservice.to.ApplicationTO;
 import com.application.internal.applicationinventoryservice.to.BusinessPartnerTO;
 import com.application.internal.applicationinventoryservice.to.DepartmentTO;
 import com.application.internal.applicationinventoryservice.to.RegulatoryTO;
+import com.application.internal.applicationinventoryservice.to.ServiceManagementRetrieveTO;
+import com.application.internal.applicationinventoryservice.to.ServiceManagementTO;
 import com.application.internal.applicationinventoryservice.to.VendorPackageTO;
 
 /**
@@ -40,9 +46,15 @@ public class GreetingsController {
 
 	@Autowired
 	private BusinessPartnerDAO businessPartnerDAO;
+	
+	@Autowired
+	private ApplicationLifecycleDAO applicationLifecycleDAO;
 
 	@Autowired
 	private RegulatoryDAO regulatoryDAO;
+	
+	@Autowired
+	private ServiceManagementDAO serviceManagementDAO;
 
 	@Autowired
 	private VendorPackageDAO vendorPackageDAO;
@@ -118,6 +130,21 @@ public class GreetingsController {
 	public void storeBusinessPartnerDetails(@RequestBody BusinessPartnerTO businessPartnerTO) throws Exception {
 		businessPartnerDAO.storeBusinessPartnerDetails(businessPartnerTO);
 	}
+	
+	@RequestMapping(value = "/retrieveApplicationLifecycleByApplicationId/{applicationId}", method = RequestMethod.GET )
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
+    public @ResponseBody List<ApplicationLifecycleRetrieveTO>  retrieveApplicationLifecycleByApplicationId(@PathVariable("applicationId") String id) throws Exception {
+		return applicationLifecycleDAO.retrieveApplicationLifecycleByApplicationId(Integer.parseInt(id));
+    }
+    
+    @PostMapping("/storeApplicationLifecycleDetails")
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
+    public void storeApplicationLifecycleDetails(@RequestBody ApplicationLifecycleTO applicationLifecycleTO) throws Exception {
+    	applicationLifecycleDAO.storeApplicationLifecycleDetails(applicationLifecycleTO);
+    }
+
 
 	@RequestMapping(value = "/retrieveRegulatoryByApplicationId/{applicationId}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -133,6 +160,21 @@ public class GreetingsController {
 	public void storeRegulatoryDetails(@RequestBody RegulatoryTO regulatoryTO) throws Exception {
 		regulatoryDAO.storeRegulatoryDetails(regulatoryTO);
 	}
+	
+	@RequestMapping(value = "/retrieveServiceManagementByApplicationId/{applicationId}", method = RequestMethod.GET )
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
+    public @ResponseBody List<ServiceManagementRetrieveTO>  retrieveServiceManagementByApplicationId(@PathVariable("applicationId") String id) throws Exception {
+			return serviceManagementDAO.retrieveServiceManagementByApplicationId(Integer.parseInt(id));
+    }
+        
+    @PostMapping("/storeServiceManagementDetails")
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
+    public void storeServiceManagementDetails(@RequestBody ServiceManagementTO serviceManagementTO) throws Exception {
+    	serviceManagementDAO.storeServiceManagementDetails(serviceManagementTO);
+    }
+
 
 	@RequestMapping(value = "/retrieveVendorPackageByApplicationId/{applicationId}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
