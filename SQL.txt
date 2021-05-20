@@ -268,3 +268,22 @@ id, question)
  ('45','Uses Business Process?'),
  ('46','Workgroup?'),
  ('47','Configuration Item?');
+ 
+----------------------------------------------------------
+
+INSERT INTO assessment.application_life_cycle_questions(
+id, question)
+VALUES ('1','Application Lifecycle'), 
+('2','Sites Applications Run In'), 
+('3','Primary Hardware/OS'), 
+('4','Primary Development Language'),
+('5','Secondary Development Language'),
+('6','Primary Database Technology'),
+('7','if any of the app/product is web based which web server platform(s) support it'),
+('8','Frequency of Application/product Change (Enhancements/Upgrades)'),
+('9','What is the Size of the change'),
+('10','What tool is the Application source code storage tool'),
+('11','Unique skills not commonly used at enterprise specific to this application'),
+('12','What query and reporting tool(s) are used by app/product'),
+('13','Do you have  a persistent test environment  readily availabile for troubleshooting/testing production applications'),
+('14','Application Size (LOC, FP etc)');
