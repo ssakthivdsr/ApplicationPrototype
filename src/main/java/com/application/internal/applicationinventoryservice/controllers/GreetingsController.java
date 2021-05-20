@@ -18,11 +18,14 @@ import com.application.internal.applicationinventoryservice.databaseintegration.
 import com.application.internal.applicationinventoryservice.databaseintegration.BusinessPartnerDAO;
 import com.application.internal.applicationinventoryservice.databaseintegration.DepartmentDAO;
 import com.application.internal.applicationinventoryservice.databaseintegration.RegulatoryDAO;
+import com.application.internal.applicationinventoryservice.databaseintegration.ServiceManagementDAO;
 import com.application.internal.applicationinventoryservice.databaseintegration.VendorPackageDAO;
 import com.application.internal.applicationinventoryservice.to.ApplicationTO;
 import com.application.internal.applicationinventoryservice.to.BusinessPartnerTO;
 import com.application.internal.applicationinventoryservice.to.DepartmentTO;
 import com.application.internal.applicationinventoryservice.to.RegulatoryTO;
+import com.application.internal.applicationinventoryservice.to.ServiceManagementRetrieveTO;
+import com.application.internal.applicationinventoryservice.to.ServiceManagementTO;
 import com.application.internal.applicationinventoryservice.to.VendorPackageTO;
 
 /**
@@ -43,6 +46,9 @@ public class GreetingsController {
 
 	@Autowired
 	private RegulatoryDAO regulatoryDAO;
+	
+	@Autowired
+	private ServiceManagementDAO serviceManagementDAO;
 
 	@Autowired
 	private VendorPackageDAO vendorPackageDAO;
@@ -133,6 +139,21 @@ public class GreetingsController {
 	public void storeRegulatoryDetails(@RequestBody RegulatoryTO regulatoryTO) throws Exception {
 		regulatoryDAO.storeRegulatoryDetails(regulatoryTO);
 	}
+	
+	@RequestMapping(value = "/retrieveServiceManagementByApplicationId/{applicationId}", method = RequestMethod.GET )
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
+    public @ResponseBody List<ServiceManagementRetrieveTO>  retrieveServiceManagementByApplicationId(@PathVariable("applicationId") String id) throws Exception {
+			return serviceManagementDAO.retrieveServiceManagementByApplicationId(Integer.parseInt(id));
+    }
+        
+    @PostMapping("/storeServiceManagementDetails")
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
+    public void storeServiceManagementDetails(@RequestBody ServiceManagementTO serviceManagementTO) throws Exception {
+    	serviceManagementDAO.storeServiceManagementDetails(serviceManagementTO);
+    }
+
 
 	@RequestMapping(value = "/retrieveVendorPackageByApplicationId/{applicationId}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
