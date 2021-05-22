@@ -217,8 +217,73 @@ CREATE TABLE assessment.vendor_package_details (
     CONSTRAINT fk_application_vendor_package_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)
 );
 
+------------------------------------------------
 
+INSERT INTO assessment.service_management_questions(
+id, question)
+ VALUES ('1','Age of code?'),
+ ('2','Number of Change Requests?'),
+ ('3','Number of Checkouts?'),
+ ('4','Movement of code into production?'),
+ ('5','Business impact?'),
+ ('6','Number of unplanned Outages?'),
+ ('7','Ratio of Actual Planned Outages vs Total Planned Outages?'),
+ ('8','Number of Problems?'),
+ ('9','Number of Service Requests for active enhancmenet?'),
+ ('10','Number of Service Requests for closed enhancement'),
+ ('11','Number of Service Requests for active research?'),
+ ('12','Number of Service Requests for closed research?'),
+ ('13','Number of Proactive Incidents for the last 1 year?'),
+ ('14','Number of Reactive Incidents for the last 1 year?'),
+ ('15','Breakup of Reactive Incidents Resolved at Level 1?'),
+ ('16','Breakup of Reactive Incidents Resolved at Level 2?'),
+ ('17','Breakup of Reactive Incidents Resolved at Level 3?'),
+ ('18','Breakup of Proactive Incidents Resolved at Level 1?'),
+ ('19','Breakup of Proactive Incidents Resolved at Level 2?'),
+ ('20','Breakup of Proactive Incidents Resolved at Level 3?'),
+ ('21','Percentage of Proactive Incidents automatically resolved?'),
+ ('22','Percentage of Proactive Incidents automatically suppressed?'),
+ ('23','Percentage of Reactive incidents that have a reference to Knowledge Items?'),
+ ('24','Percentage of Proactive incidents that have a reference to Knowledge Items?'),
+ ('25','Number of Level "Critical Priority - Reactive Incident Requests?'),
+ ('26','Number of Level "High" Priority - Reactive Incident Requests active ?'),
+ ('27','Number of Level "High" Priority - Reactive Incident Requests closed?'),
+ ('28','Number of Level "Average" Priority - Reactive Incident Requests active?'),
+ ('29','Number of Level "Average" Priority - Reactive Incident Requests closed?'),
+ ('30','Number of Level "Low" Priority - Reactive Incident Requests active?'),
+ ('31','Number of Level "Low" Priority - Reactive Incident Requests closed?'),
+ ('32','Percentage of Sev 1 Reactive incidents that breached SLAs?'),
+ ('33','Percentage of Sev 2 Reactive incidents that breached SLAs?'),
+ ('34','Percentage of Sev 3 Reactive incidents that breached SLAs?'),
+ ('35','Percentage of Sev 1 Proactive incidents that breached SLAs?'),
+ ('36','Percentage of Sev 2 Proactive incidents that breached SLAs?'),
+ ('37','Percentage of Sev 3 Proactive incidents that breached SLAs?'),
+ ('38','Ratio of Actual Application Availability vs Planned Application Availability?'),
+ ('39','Recovery Time Objective(RTO) in Hours?'),
+ ('40','Recovery Point Objective(RPO) in Hours?'),
+ ('41','Support Window?'),
+ ('42','Maintanence documents?'),
+ ('43','State of Jurisdiction?'),
+ ('44','Governing Support Service?'),
+ ('45','Uses Business Process?'),
+ ('46','Workgroup?'),
+ ('47','Configuration Item?');
+ 
+----------------------------------------------------------
 
-
-
-d7e4cpif9fb7ik
+INSERT INTO assessment.application_life_cycle_questions(
+id, question)
+VALUES ('1','Application Lifecycle'), 
+('2','Sites Applications Run In'), 
+('3','Primary Hardware/OS'), 
+('4','Primary Development Language'),
+('5','Secondary Development Language'),
+('6','Primary Database Technology'),
+('7','if any of the app/product is web based which web server platform(s) support it'),
+('8','Frequency of Application/product Change (Enhancements/Upgrades)'),
+('9','What is the Size of the change'),
+('10','What tool is the Application source code storage tool'),
+('11','Unique skills not commonly used at enterprise specific to this application'),
+('12','What query and reporting tool(s) are used by app/product'),
+('13','Do you have  a persistent test environment  readily availabile for troubleshooting/testing production applications'),
+('14','Application Size (LOC, FP etc)');
