@@ -36,7 +36,7 @@ public class ApplicationLifecycleDAO {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String sql = "insert into assessment.application_life_cycle values(DEFAULT,:applicationId,:questionId,:applicationLifecycleAnswers)";
 		// Total 14 questions in application lifecycle questions table
-		for (int i = 0; i < 13; i++) {
+		for (int i = 0; i < 14; i++) {
 			Map params = new HashMap();
 			params.put("applicationId", applicationLifecycleTO.getApplicationId());
 			params.put("questionId", applicationLifecycleTO.questionAnswer[i].getQuestionId());
