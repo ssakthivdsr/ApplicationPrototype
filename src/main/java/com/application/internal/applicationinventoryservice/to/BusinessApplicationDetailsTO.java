@@ -4,51 +4,51 @@ import java.util.List;
 
 public class BusinessApplicationDetailsTO {
 
-	private List<ChannelTO> channelTOs;
-	private List<TransactionTO> transactionTOs;
-	private List<ProductTO> productTOs;
-	private List<UserTO> userTOs;
-	private List<BusinessApplicationQuestionAnswerTO> businessApplicationQuestionAnswerTOs;
+	private List<ChannelTO> channels;
+	private List<TransactionTO> transactions;
+	private List<ProductTO> products;
+	private List<UserTO> users;
+	private List<BusinessApplicationQuestionAnswerTO> businessApplicationQuestionAnswer;
 
-	public List<ChannelTO> getChannelTOs() {
-		return channelTOs;
+	public List<ChannelTO> getChannels() {
+		return channels;
 	}
 
-	public void setChannelTOs(List<ChannelTO> channelTOs) {
-		this.channelTOs = channelTOs;
+	public void setChannels(List<ChannelTO> channels) {
+		this.channels = channels;
 	}
 
-	public List<TransactionTO> getTransactionTOs() {
-		return transactionTOs;
+	public List<TransactionTO> getTransactions() {
+		return transactions;
 	}
 
-	public void setTransactionTOs(List<TransactionTO> transactionTOs) {
-		this.transactionTOs = transactionTOs;
+	public void setTransactions(List<TransactionTO> transactions) {
+		this.transactions = transactions;
 	}
 
-	public List<ProductTO> getProductTOs() {
-		return productTOs;
+	public List<ProductTO> getProducts() {
+		return products;
 	}
 
-	public void setProductTOs(List<ProductTO> productTOs) {
-		this.productTOs = productTOs;
+	public void setProducts(List<ProductTO> products) {
+		this.products = products;
 	}
 
-	public List<UserTO> getUserTOs() {
-		return userTOs;
+	public List<UserTO> getUsers() {
+		return users;
 	}
 
-	public void setUserTOs(List<UserTO> userTOs) {
-		this.userTOs = userTOs;
+	public void setUsers(List<UserTO> users) {
+		this.users = users;
 	}
 
-	public List<BusinessApplicationQuestionAnswerTO> getBusinessApplicationQuestionAnswerTOs() {
-		return businessApplicationQuestionAnswerTOs;
+	public List<BusinessApplicationQuestionAnswerTO> getBusinessApplicationQuestionAnswer() {
+		return businessApplicationQuestionAnswer;
 	}
 
-	public void setBusinessApplicationQuestionAnswerTOs(
-			List<BusinessApplicationQuestionAnswerTO> businessApplicationQuestionAnswerTOs) {
-		this.businessApplicationQuestionAnswerTOs = businessApplicationQuestionAnswerTOs;
+	public void setBusinessApplicationQuestionAnswer(
+			List<BusinessApplicationQuestionAnswerTO> businessApplicationQuestionAnswer) {
+		this.businessApplicationQuestionAnswer = businessApplicationQuestionAnswer;
 	}
 
 }

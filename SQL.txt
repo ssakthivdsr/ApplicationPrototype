@@ -12,7 +12,9 @@ CREATE SEQUENCE assessment.application_lob_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.application_function_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.business_partner_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.application_transaction_details_sequence START 1 INCREMENT 1;
-CREATE SEQUENCE assessment.application_user_details_sequence;
+CREATE SEQUENCE assessment.application_channel_details_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_product_details_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_user_details_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.application_additional_details_questions_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.application_additional_details_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.regulatory_sequence START 1 INCREMENT 1;
@@ -120,9 +122,28 @@ CREATE TABLE assessment.application_transaction_details (
     id integer DEFAULT nextval('assessment.application_transaction_details_sequence'),
         application_id integer,
         transaction_type VARCHAR(200),
-    volume JSON, 
+    	volume JSON, 
         PRIMARY KEY(id),
     CONSTRAINT fk_application_transaction_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)
+);
+
+CREATE TABLE assessment.application_channel_details (
+    id integer DEFAULT nextval('assessment.application_channel_details_sequence'),
+    application_id integer,
+    channel_type varchar(200),
+    volume json,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_application_channel_app_id FOREIGN KEY (application_id) REFERENCES assessment.application (id)
+);
+
+CREATE TABLE assessment.application_product_details (
+    id integer DEFAULT nextval('assessment.application_product_details_sequence'),
+    application_id integer,
+    product_type varchar(200),
+    volume json,
+    written_premium_of_products json,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_application_product_app_id FOREIGN KEY (application_id) REFERENCES assessment.application (id)
 );
 
 

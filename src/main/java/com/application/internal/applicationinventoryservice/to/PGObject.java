@@ -30,4 +30,10 @@ public class PGObject {
 		this.transaction2018 = transaction2018;
 	}
 
+	@Override
+	public String toString() {
+		return "{ \"type\": \"json\", \"value\": \"{ \"transaction2020\": " + transaction2020 + ", \"transaction2019\": " + transaction2019
+				+ ", \"transaction2018\": " + transaction2018 + " }\" }";
+	}
+
 }
