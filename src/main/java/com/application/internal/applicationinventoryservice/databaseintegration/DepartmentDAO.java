@@ -18,25 +18,26 @@ import com.application.internal.applicationinventoryservice.to.DepartmentTO;
 
 @Component
 public class DepartmentDAO {
-	
+
 	@Autowired
 	private DataSource dataSource;
-	
+
 	public DepartmentTO retrieveDepartmentData(int id) {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String query = "SELECT id as departmentId, name as departmentName, owner as departmentOwner FROM assessment.department where id=:id";
 		SqlParameterSource param = new MapSqlParameterSource("id", id);
-		DepartmentTO result = template.queryForObject(query, param, BeanPropertyRowMapper.newInstance(DepartmentTO.class));
+		DepartmentTO result = template.queryForObject(query, param,
+				BeanPropertyRowMapper.newInstance(DepartmentTO.class));
 		return result;
 	}
-	
+
 	public List<DepartmentTO> retrieveAllDepartmentDetails() {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String query = "SELECT id as departmentId, name as departmentName, owner as departmentOwner FROM assessment.department order by id asc";
 		List<DepartmentTO> result = template.query(query, new BeanPropertyRowMapper(DepartmentTO.class));
 		return result;
 	}
-	
+
 	public void storeDepartmentData(String departmentName, String departmentOwner) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String sql = "insert into assessment.department values(DEFAULT,:departmentName,:departmentOwner)";
@@ -45,41 +46,18 @@ public class DepartmentDAO {
 		params.put("departmentOwner", departmentOwner);
 		template.update(sql, params);
 	}
-	
+
 	public void storeDepartmentDetails(DepartmentTO departmentTO) throws SQLException {
 		storeDepartmentData(departmentTO.getDepartmentName(), departmentTO.getDepartmentOwner());
 	}
-	
-//	public RetrieveDepartmentTO retrieveDepartmentData(String id) throws SQLException {
-//		RetrieveDepartmentTO result = new RetrieveDepartmentTO();
-//		Statement stmt = connection.createStatement();
-//		String sql = "SELECT id,departmentname,departmentowner FROM department where id=" + Integer.parseInt(id);
-//	    ResultSet rs = stmt.executeQuery(sql);
-//	    int departmentId  = 0;
-//        String departmentname = "";
-//        String departmentowner = "";
-//	    while(rs.next()){
-//	         //Retrieve by column name
-//	    	 departmentId  = rs.getInt("id");
-//	         departmentname = rs.getString("departmentname");
-//	         departmentowner = rs.getString("departmentowner");
-//	         result.setId(departmentId);
-//	         result.setDepartmentName(departmentname);
-//	         result.setDepartmentOwner(departmentowner);
-//	         //Display values
-//	         System.out.print("ID: " + departmentId);
-//	         System.out.print(", First: " + departmentname);
-//	         System.out.println(", departmentowner: " + departmentowner);
-//	    }
-////	    return "\ndepartmentId:" + departmentId + ", departmentname: " + departmentname  + ", departmentowner: " + departmentowner;
-//	    
-//	    return result;
-//	}
-	
-//	public void storeDepartmentData(String departmentName, String departmentOwner) throws SQLException {
-//		Statement stmt = connection.createStatement();
-//		String sql = "insert into department(id,departmentname,departmentowner) values(DEFAULT,'" + departmentName +"','" + departmentOwner + "')";
-//	    stmt.executeUpdate(sql);
-//	}
+
+	public int updateDepartmentDetails(DepartmentTO departmentTO) throws SQLException {
+		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+		String sql = "update assessment.department set name=:departmentName, owner = :departmentOwner where id=:id";
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue("departmentName", departmentTO.getDepartmentName())
+				.addValue("departmentOwner", departmentTO.getDepartmentOwner()).addValue("id", departmentTO.getDepartmentId());
+
+		return template.update(sql, parameters);
+	}
 
 }

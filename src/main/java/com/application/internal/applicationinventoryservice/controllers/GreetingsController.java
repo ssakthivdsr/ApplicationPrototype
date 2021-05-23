@@ -85,7 +85,7 @@ public class GreetingsController {
 		return departmentDAO.retrieveAllDepartmentDetails();
 	}
 
-	@RequestMapping(value = "/storeDepartmentData/{name}/{owner}", method = RequestMethod.GET)
+	@RequestMapping(value = "/storeDepartmentData/{name}/{owner}", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
 	public void storeDepartmentData(@PathVariable("name") String departmentName,
@@ -98,6 +98,13 @@ public class GreetingsController {
 	@CrossOrigin
 	public void storeDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
 		departmentDAO.storeDepartmentDetails(departmentTO);
+	}
+	
+	@PostMapping("/updateDepartmentDetails")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
+	public int updateDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
+		return departmentDAO.updateDepartmentDetails(departmentTO);
 	}
 
 	@RequestMapping(value = "/retrieveApplicationById/{id}", method = RequestMethod.GET)
