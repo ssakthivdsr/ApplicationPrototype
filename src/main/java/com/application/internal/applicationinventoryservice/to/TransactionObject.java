@@ -1,6 +1,6 @@
 package com.application.internal.applicationinventoryservice.to;
 
-public class PGObject {
+public class TransactionObject {
 
 	public int transaction2020;
 	public int transaction2019;
@@ -32,8 +32,8 @@ public class PGObject {
 
 	@Override
 	public String toString() {
-		return "{ \"type\": \"json\", \"value\": \"{ \"transaction2020\": " + transaction2020 + ", \"transaction2019\": " + transaction2019
-				+ ", \"transaction2018\": " + transaction2018 + " }\" }";
+		return "{ \"transaction2020\": " + transaction2020
+				+ ", \"transaction2019\": " + transaction2019 + ", \"transaction2018\": " + transaction2018 + " }";
 	}
 
 }

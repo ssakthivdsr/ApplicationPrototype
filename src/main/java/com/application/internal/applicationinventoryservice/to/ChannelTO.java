@@ -7,6 +7,7 @@ public class ChannelTO {
 	int applicationId;
 	String channelType;
 	PGobject volume;
+	TransactionObject volumeObject;
 
 	public int getId() {
 		return id;
@@ -38,6 +39,14 @@ public class ChannelTO {
 
 	public void setVolume(PGobject volume) {
 		this.volume = volume;
+	}
+
+	public TransactionObject getVolumeObject() {
+		return volumeObject;
+	}
+
+	public void setVolumeObject(TransactionObject volumeObject) {
+		this.volumeObject = volumeObject;
 	}
 
 }

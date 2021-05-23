@@ -8,7 +8,9 @@ public class ProductTO {
 	int applicationId;
 	String productType;
 	PGobject volume;
+	TransactionObject volumeObject;
 	PGobject writtenPremiumOfProducts;
+	TransactionObject writtenPremiumOfProductsObject;
 
 	public int getId() {
 		return id;
@@ -42,12 +44,28 @@ public class ProductTO {
 		this.volume = volume;
 	}
 
+	public TransactionObject getVolumeObject() {
+		return volumeObject;
+	}
+
+	public void setVolumeObject(TransactionObject volumeObject) {
+		this.volumeObject = volumeObject;
+	}
+
 	public PGobject getwrittenPremiumOfProducts() {
 		return writtenPremiumOfProducts;
 	}
 
 	public void setwrittenPremiumOfProducts(PGobject writtenPremiumOfProducts) {
 		this.writtenPremiumOfProducts = writtenPremiumOfProducts;
+	}
+
+	public TransactionObject getWrittenPremiumOfProductsObject() {
+		return writtenPremiumOfProductsObject;
+	}
+
+	public void setWrittenPremiumOfProductsObject(TransactionObject writtenPremiumOfProductsObject) {
+		this.writtenPremiumOfProductsObject = writtenPremiumOfProductsObject;
 	}
 
 }

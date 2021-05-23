@@ -3,18 +3,11 @@ package com.application.internal.applicationinventoryservice.to;
 import org.postgresql.util.PGobject;
 
 public class UserTO {
-	public int id;
-	public int applicationId;
-	public String userType;
-	public PGobject volume;
-
-	public PGobject getVolume() {
-		return volume;
-	}
-
-	public void setVolume(PGobject volume) {
-		this.volume = volume;
-	}
+	int id;
+	int applicationId;
+	String userType;
+	PGobject volume;
+	TransactionObject volumeObject;
 
 	public int getId() {
 		return id;
@@ -39,6 +32,22 @@ public class UserTO {
 	public String getuserType() {
 
 		return userType;
+	}
+
+	public PGobject getVolume() {
+		return volume;
+	}
+
+	public void setVolume(PGobject volume) {
+		this.volume = volume;
+	}
+
+	public TransactionObject getVolumeObject() {
+		return volumeObject;
+	}
+
+	public void setVolumeObject(TransactionObject volumeObject) {
+		this.volumeObject = volumeObject;
 	}
 
 }
