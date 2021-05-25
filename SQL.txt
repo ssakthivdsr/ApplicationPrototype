@@ -308,3 +308,62 @@ VALUES ('1','Application Lifecycle'),
 ('12','What query and reporting tool(s) are used by app/product'),
 ('13','Do you have  a persistent test environment  readily availabile for troubleshooting/testing production applications'),
 ('14','Application Size (LOC, FP etc)');
+
+--------------------------------------------------------------------
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('1','Is there a difference in which internet customers and agents/CC users treated? For instance or end customers allowed to cancel policies?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('2','Is UW manual or automated?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('3','If automated,What is the volume of transactions that are not STP from an underwriting standpoint?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('4','What is the volume of transactions that are overridden in CY2020 & CY2019 ?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('5','Does it have a product workbench?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('6','How long does it take to launch a new product end-end(concept to implementation)?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('7','What are the different products sold by the PAS?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('8','How many product variants are live in the System?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('9','How far back does the system allow for endorsements (1/2/3/4 or more terms)?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('10','How far back can transactions go to previous terms (1/2/3/4 or more)?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('11','Is rating manual or automated?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('12','If Automated, is this integrated as part of thr PAS or an engine like Ratabase?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('13','How many internal interfacing applications (like GL, claims, CRM, Documents and so on) does it interact with?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('14','How many external interfacing applications(like MVR, Lexis Nexus, CLUE and so on) does it interact with?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('15','Is there is a difference in which internet Customer and Agents/CC users treated? Number of transactions difference');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('16','Is the PAS system used in all states?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('17','If sold in certain states please list them out( by product by volume in Cy2020,19,18)');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('18','What is the NPS score in last 3 years?');
+
+INSERT into assessment.application_additional_details_questions(id,question)
+VALUES('19','What is the Customer satisfaction score in last 3 years?');

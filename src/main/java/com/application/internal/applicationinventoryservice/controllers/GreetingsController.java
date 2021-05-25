@@ -33,10 +33,6 @@ import com.application.internal.applicationinventoryservice.to.ServiceManagement
 import com.application.internal.applicationinventoryservice.to.ServiceManagementTO;
 import com.application.internal.applicationinventoryservice.to.VendorPackageTO;
 
-/**
- *
- * A sample greetings controller to return greeting text
- */
 @RestController
 public class GreetingsController {
 
@@ -64,13 +60,6 @@ public class GreetingsController {
 	@Autowired
 	private VendorPackageDAO vendorPackageDAO;
 
-	/**
-	 *
-	 * @param name the name to greet
-	 * @return greeting text
-	 * @throws Exception
-	 */
-
 	@RequestMapping(value = "/retrieveDepartmentById/{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
@@ -85,7 +74,7 @@ public class GreetingsController {
 		return departmentDAO.retrieveAllDepartmentDetails();
 	}
 
-	@RequestMapping(value = "/storeDepartmentData/{name}/{owner}", method = RequestMethod.POST)
+	@RequestMapping(value = "/storeDepartmentData/{name}/{owner}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
 	public void storeDepartmentData(@PathVariable("name") String departmentName,
@@ -98,13 +87,6 @@ public class GreetingsController {
 	@CrossOrigin
 	public void storeDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
 		departmentDAO.storeDepartmentDetails(departmentTO);
-	}
-	
-	@PostMapping("/updateDepartmentDetails")
-	@ResponseStatus(HttpStatus.OK)
-	@CrossOrigin
-	public int updateDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
-		return departmentDAO.updateDepartmentDetails(departmentTO);
 	}
 
 	@RequestMapping(value = "/retrieveApplicationById/{id}", method = RequestMethod.GET)
@@ -186,8 +168,15 @@ public class GreetingsController {
 	@PostMapping("/storeRegulatoryDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void storeRegulatoryDetails(@RequestBody RegulatoryTO regulatoryTO) throws Exception {
+	public void storeRegulatoryDetails(@RequestBody List<RegulatoryTO> regulatoryTO) throws Exception {
 		regulatoryDAO.storeRegulatoryDetails(regulatoryTO);
+	}
+
+	@PostMapping("/updateRegulatoryDetails")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
+	public void updateRegulatoryDetails(@RequestBody List<RegulatoryTO> regulatoryTO) throws Exception {
+		regulatoryDAO.updateRegulatoryDetails(regulatoryTO);
 	}
 
 	@RequestMapping(value = "/retrieveServiceManagementByApplicationId/{applicationId}", method = RequestMethod.GET)
