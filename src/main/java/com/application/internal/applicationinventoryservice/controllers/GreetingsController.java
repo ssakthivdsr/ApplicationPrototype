@@ -99,7 +99,7 @@ public class GreetingsController {
 	public void storeDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
 		departmentDAO.storeDepartmentDetails(departmentTO);
 	}
-	
+
 	@PostMapping("/updateDepartmentDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
@@ -128,6 +128,13 @@ public class GreetingsController {
 		return applicationDAO.storeApplicationDetails(applicationTO);
 	}
 
+	@PostMapping("/updateApplicationDetails")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
+	public int updateApplicationDetails(@RequestBody ApplicationTO applicationTO) throws Exception {
+		return applicationDAO.updateApplicationDetails(applicationTO);
+	}
+
 	@RequestMapping(value = "/retrieveBusinessPartnerByApplicationId/{applicationId}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
@@ -141,6 +148,13 @@ public class GreetingsController {
 	@CrossOrigin
 	public void storeBusinessPartnerDetails(@RequestBody BusinessPartnerTO businessPartnerTO) throws Exception {
 		businessPartnerDAO.storeBusinessPartnerDetails(businessPartnerTO);
+	}
+
+	@PostMapping("/updateBusinessPartnerDetails")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
+	public int updateBusinessPartnerDetails(@RequestBody BusinessPartnerTO businessPartnerTO) throws Exception {
+		return businessPartnerDAO.updateBusinessPartnerDetails(businessPartnerTO);
 	}
 
 	@RequestMapping(value = "/retrieveBusinessApplicationByApplicationId/{applicationId}", method = RequestMethod.GET)
@@ -218,6 +232,13 @@ public class GreetingsController {
 	@CrossOrigin
 	public void storeVendorPackageDetails(@RequestBody VendorPackageTO vendorPackageTO) throws Exception {
 		vendorPackageDAO.storeVendorPackageDetails(vendorPackageTO);
+	}
+
+	@PostMapping("/updateVendorPackageDetails")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
+	public int updateVendorPackageDetails(@RequestBody VendorPackageTO vendorPackageTO) throws Exception {
+		return vendorPackageDAO.updateVendorPackageDetails(vendorPackageTO);
 	}
 
 }

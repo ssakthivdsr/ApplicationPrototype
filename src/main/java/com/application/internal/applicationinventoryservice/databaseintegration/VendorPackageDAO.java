@@ -33,22 +33,64 @@ public class VendorPackageDAO {
 	public void storeVendorPackageDetails(VendorPackageTO vendorPackageTO) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String sql = "insert into assessment.vendor_package_details values(DEFAULT,:applicationId,:engAssociatedManagedServices,:packageType,:name,:engAssociatedWithVendorPackage,:degreeOfCustomization,:hostedLocation,:hostedName,:engAssociatedWithEsternallyHostedVendor,:isLatestSwVersion,:packageVersion,:frequencyOfUpdates,:frequencyOfPatches)";
-		Map params = new HashMap();
-		params.put("applicationId", vendorPackageTO.getApplicationId());
-		params.put("engAssociatedManagedServices", vendorPackageTO.getEngAssociatedManagedServices());
-		params.put("packageType", vendorPackageTO.getPackageType());
-		params.put("name", vendorPackageTO.getName());
-		params.put("engAssociatedWithVendorPackage", vendorPackageTO.getEngAssociatedWithVendorPackage());
-		params.put("hostedLocation", vendorPackageTO.getHostedLocation());
-		params.put("hostedName", vendorPackageTO.getHostedName());
-		params.put("engAssociatedWithEsternallyHostedVendor",
-				vendorPackageTO.getEngAssociatedWithEsternallyHostedVendor());
-		params.put("isLatestSwVersion", vendorPackageTO.getIsLatestSwVersion());
-		params.put("packageVersion", vendorPackageTO.getPackageVersion());
-		params.put("frequencyOfUpdates", vendorPackageTO.getFrequencyOfUpdates());
-		params.put("frequencyOfPatches", vendorPackageTO.getFrequencyOfPatches());
-		params.put("degreeOfCustomization", vendorPackageTO.getDegreeOfCustomization());
+
+		/*
+		 * Map params = new HashMap(); params.put("applicationId",
+		 * vendorPackageTO.getApplicationId());
+		 * params.put("engAssociatedManagedServices",
+		 * vendorPackageTO.getEngAssociatedManagedServices()); params.put("packageType",
+		 * vendorPackageTO.getPackageType()); params.put("name",
+		 * vendorPackageTO.getName()); params.put("engAssociatedWithVendorPackage",
+		 * vendorPackageTO.getEngAssociatedWithVendorPackage());
+		 * params.put("hostedLocation", vendorPackageTO.getHostedLocation());
+		 * params.put("hostedName", vendorPackageTO.getHostedName());
+		 * params.put("engAssociatedWithEsternallyHostedVendor",
+		 * vendorPackageTO.getEngAssociatedWithEsternallyHostedVendor());
+		 * params.put("isLatestSwVersion", vendorPackageTO.getIsLatestSwVersion());
+		 * params.put("packageVersion", vendorPackageTO.getPackageVersion());
+		 * params.put("frequencyOfUpdates", vendorPackageTO.getFrequencyOfUpdates());
+		 * params.put("frequencyOfPatches", vendorPackageTO.getFrequencyOfPatches());
+		 * params.put("degreeOfCustomization",
+		 * vendorPackageTO.getDegreeOfCustomization()); template.update(sql, params);
+		 */
+
+		SqlParameterSource params = new MapSqlParameterSource()
+				.addValue("vendorPackageId", vendorPackageTO.getVendorPackageId())
+				.addValue("applicationId", vendorPackageTO.getApplicationId())
+				.addValue("engAssociatedManagedServices", vendorPackageTO.getEngAssociatedManagedServices())
+				.addValue("packageType", vendorPackageTO.getPackageType()).addValue("name", vendorPackageTO.getName())
+				.addValue("engAssociatedWithVendorPackage", vendorPackageTO.getEngAssociatedWithVendorPackage())
+				.addValue("hostedLocation", vendorPackageTO.getHostedLocation())
+				.addValue("hostedName", vendorPackageTO.getHostedName())
+				.addValue("engAssociatedWithEsternallyHostedVendor",
+						vendorPackageTO.getEngAssociatedWithEsternallyHostedVendor())
+				.addValue("isLatestSwVersion", vendorPackageTO.getIsLatestSwVersion())
+				.addValue("packageVersion", vendorPackageTO.getPackageVersion())
+				.addValue("frequencyOfUpdates", vendorPackageTO.getFrequencyOfUpdates())
+				.addValue("frequencyOfPatches", vendorPackageTO.getFrequencyOfPatches())
+				.addValue("degreeOfCustomization", vendorPackageTO.getDegreeOfCustomization());
 		template.update(sql, params);
+	}
+
+	public int updateVendorPackageDetails(VendorPackageTO vendorPackageTO) throws SQLException {
+		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+		String sql = "update assessment.vendor_package_details set application_id =:applicationId, eng_associated_managed_services =:engAssociatedManagedServices, package_type =:packageType, name =:name, eng_associated_with_vendor_package =:engAssociatedWithVendorPackage, degree_of_customization =:degreeOfCustomization, hosted_location =:hostedLocation, hosted_name =:hostedName, eng_associated_with_esternally_hosted_vendor =:engAssociatedWithEsternallyHostedVendor, is_latest_sw_version =:isLatestSwVersion, package_version =:packageVersion, frequency_of_updates =:frequencyOfUpdates, frequency_of_patches =:frequencyOfPatches where id =:vendorPackageId";
+		SqlParameterSource parameters = new MapSqlParameterSource()
+				.addValue("vendorPackageId", vendorPackageTO.getVendorPackageId())
+				.addValue("applicationId", vendorPackageTO.getApplicationId())
+				.addValue("engAssociatedManagedServices", vendorPackageTO.getEngAssociatedManagedServices())
+				.addValue("packageType", vendorPackageTO.getPackageType()).addValue("name", vendorPackageTO.getName())
+				.addValue("engAssociatedWithVendorPackage", vendorPackageTO.getEngAssociatedWithVendorPackage())
+				.addValue("hostedLocation", vendorPackageTO.getHostedLocation())
+				.addValue("hostedName", vendorPackageTO.getHostedName())
+				.addValue("engAssociatedWithEsternallyHostedVendor",
+						vendorPackageTO.getEngAssociatedWithEsternallyHostedVendor())
+				.addValue("isLatestSwVersion", vendorPackageTO.getIsLatestSwVersion())
+				.addValue("packageVersion", vendorPackageTO.getPackageVersion())
+				.addValue("frequencyOfUpdates", vendorPackageTO.getFrequencyOfUpdates())
+				.addValue("frequencyOfPatches", vendorPackageTO.getFrequencyOfPatches())
+				.addValue("degreeOfCustomization", vendorPackageTO.getDegreeOfCustomization());
+		return template.update(sql, parameters);
 	}
 
 }
