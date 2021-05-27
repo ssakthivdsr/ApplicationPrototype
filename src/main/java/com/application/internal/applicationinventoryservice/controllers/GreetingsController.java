@@ -88,6 +88,13 @@ public class GreetingsController {
 	public void storeDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
 		departmentDAO.storeDepartmentDetails(departmentTO);
 	}
+	
+	@PostMapping("/updateDepartmentDetails")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
+	public void updateDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
+		departmentDAO.updateDepartmentDetails(departmentTO);
+	}
 
 	@RequestMapping(value = "/retrieveApplicationById/{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
