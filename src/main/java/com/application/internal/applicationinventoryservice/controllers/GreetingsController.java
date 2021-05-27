@@ -190,15 +190,15 @@ public class GreetingsController {
 	@PostMapping("/storeRegulatoryDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void storeRegulatoryDetails(@RequestBody List<RegulatoryTO> regulatoryTO) throws Exception {
-		regulatoryDAO.storeRegulatoryDetails(regulatoryTO);
+	public void storeRegulatoryDetails(@RequestBody RegulatoryTO regulatoryTO) throws Exception {
+		regulatoryDAO.storeAndUpdateRegulatoryDetails(regulatoryTO);
 	}
-
+	
 	@PostMapping("/updateRegulatoryDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void updateRegulatoryDetails(@RequestBody List<RegulatoryTO> regulatoryTO) throws Exception {
-		regulatoryDAO.updateRegulatoryDetails(regulatoryTO);
+	public void updateRegulatoryDetails(@RequestBody RegulatoryTO regulatoryTO) throws Exception {
+		regulatoryDAO.storeAndUpdateRegulatoryDetails(regulatoryTO);
 	}
 
 	@RequestMapping(value = "/retrieveServiceManagementByApplicationId/{applicationId}", method = RequestMethod.GET)
