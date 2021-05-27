@@ -185,6 +185,13 @@ public class GreetingsController {
 			throws Exception {
 		applicationLifecycleDAO.storeApplicationLifecycleDetails(applicationLifecycleTO);
 	}
+	
+	@PostMapping("/updateApplicationLifecycleDetails")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
+	public void updateApplicationLifecycleDetails(@RequestBody List<ApplicationLifecycleRetrieveTO> ApplicationLifecycleRetrieveTO) throws Exception {
+		applicationLifecycleDAO.updateApplicationLifecycleDetails(ApplicationLifecycleRetrieveTO);
+	}
 
 	@RequestMapping(value = "/retrieveRegulatoryByApplicationId/{applicationId}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
