@@ -138,7 +138,7 @@ public class GreetingsController {
 	@CrossOrigin
 	public void storeBusinessApplicationDetails(@RequestBody BusinessApplicationDetailsTO businessApplicationDetailsTO)
 			throws Exception {
-		businessApplicationDetailsDAO.storeBusinessApplicationData(businessApplicationDetailsTO);
+		businessApplicationDetailsDAO.storeUpdateBusinessApplicationData(businessApplicationDetailsTO);
 	}
 	
 	@PostMapping(value = "/updateBusinessApplicationDetails")
@@ -146,7 +146,7 @@ public class GreetingsController {
 	@CrossOrigin
 	public void updateBusinessApplicationDetails(@RequestBody BusinessApplicationDetailsTO businessApplicationDetailsTO)
 			throws Exception {
-		businessApplicationDetailsDAO.updateBusinessApplicationData(businessApplicationDetailsTO);
+		businessApplicationDetailsDAO.storeUpdateBusinessApplicationData(businessApplicationDetailsTO);
 	}
 
 	@RequestMapping(value = "/retrieveApplicationLifecycleByApplicationId/{applicationId}", method = RequestMethod.GET)
