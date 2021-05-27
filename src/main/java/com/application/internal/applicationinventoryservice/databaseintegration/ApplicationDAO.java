@@ -17,18 +17,19 @@ import com.application.internal.applicationinventoryservice.to.ApplicationTO;
 
 @Component
 public class ApplicationDAO {
-	
+
 	@Autowired
 	private DataSource dataSource;
-	
+
 	public ApplicationTO retrieveApplicationData(int id) {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String query = "SELECT id as applicationId, dept_id as departmentId, name as applicationName, component_manager as nameOfTheComponentManager, sme as smeProvidedByManagers, primary_tech_sme as nameOfPrimaryTechSME, primary_ba as nameOfPrimaryBA, descr as applicationDescription, lob as lineOfBusiness, func as functionality FROM assessment.application where id=:id";
 		SqlParameterSource param = new MapSqlParameterSource("id", id);
-		ApplicationTO result = template.queryForObject(query, param, BeanPropertyRowMapper.newInstance(ApplicationTO.class));
+		ApplicationTO result = template.queryForObject(query, param,
+				BeanPropertyRowMapper.newInstance(ApplicationTO.class));
 		return result;
 	}
-	
+
 	public List<ApplicationTO> retrieveAllApplicationDetails() {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 //		String query = "SELECT id as applicationId, dept_id as departmentId, name as applicationName, component_manager as nameOfTheComponentManager, sme as smeProvidedByManagers, primary_tech_sme as nameOfPrimaryTechSME, primary_ba as nameOfPrimaryBA, descr as applicationDescription, lob as lineOfBusiness, func as functionality FROM assessment.application order by id asc";
@@ -36,13 +37,12 @@ public class ApplicationDAO {
 				+ "	a.id as applicationId, a.dept_id as departmentId, d.name as departmentName, a.name as applicationName, \r\n"
 				+ "	a.component_manager as nameOfTheComponentManager, a.sme as smeProvidedByManagers, a.primary_tech_sme as nameOfPrimaryTechSME, \r\n"
 				+ "	a.primary_ba as nameOfPrimaryBA, 	a.descr as applicationDescription, lob as lineOfBusiness, func as functionality \r\n"
-				+ "	FROM assessment.application as a,assessment.department as d\r\n"
-				+ "	where a.dept_id = d.id\r\n"
+				+ "	FROM assessment.application as a,assessment.department as d\r\n" + "	where a.dept_id = d.id\r\n"
 				+ "	order by a.id asc";
 		List<ApplicationTO> result = template.query(query, new BeanPropertyRowMapper(ApplicationTO.class));
 		return result;
 	}
-	
+
 	public int storeApplicationDetails(ApplicationTO applicationTO) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		KeyHolder holder = new GeneratedKeyHolder();
@@ -61,7 +61,7 @@ public class ApplicationDAO {
 		 * applicationTO.getNameOfPrimaryBA());
 		 */
 //		template.update(sql, params);
-		
+
 		SqlParameterSource parameters = new MapSqlParameterSource()
 				.addValue("applicationName", applicationTO.getApplicationName())
 				.addValue("applicationDescription", applicationTO.getApplicationDescription())
@@ -72,9 +72,25 @@ public class ApplicationDAO {
 				.addValue("smeProvidedByManagers", applicationTO.getSmeProvidedByManagers())
 				.addValue("nameOfPrimaryTechSME", applicationTO.getNameOfPrimaryTechSME())
 				.addValue("nameOfPrimaryBA", applicationTO.getNameOfPrimaryBA());
-		String[] fields = {"id"};
-		template.update(sql, parameters,holder,fields);
+		String[] fields = { "id" };
+		template.update(sql, parameters, holder, fields);
 		return holder.getKey().intValue();
 	}
-}
 
+	public int updateApplicationDetails(ApplicationTO applicationTO) throws SQLException {
+		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+		String sql = "update assessment.application set name=:applicationName,descr=:applicationDescription,dept_id=:departmentId,lob=:lineOfBusiness,func=:functionality,component_manager=:nameOfTheComponentManager,sme=:smeProvidedByManagers,primary_tech_sme=:nameOfPrimaryTechSME,primary_ba=:nameOfPrimaryBA where id=:applicationId";
+		SqlParameterSource parameters = new MapSqlParameterSource()
+				.addValue("applicationName", applicationTO.getApplicationName())
+				.addValue("applicationDescription", applicationTO.getApplicationDescription())
+				.addValue("departmentId", applicationTO.getDepartmentId())
+				.addValue("lineOfBusiness", applicationTO.getLineOfBusiness())
+				.addValue("functionality", applicationTO.getFunctionality())
+				.addValue("nameOfTheComponentManager", applicationTO.getNameOfTheComponentManager())
+				.addValue("smeProvidedByManagers", applicationTO.getSmeProvidedByManagers())
+				.addValue("nameOfPrimaryTechSME", applicationTO.getNameOfPrimaryTechSME())
+				.addValue("nameOfPrimaryBA", applicationTO.getNameOfPrimaryBA())
+				.addValue("applicationId", applicationTO.getApplicationId());
+		return template.update(sql, parameters);
+	}
+}
