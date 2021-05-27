@@ -140,6 +140,14 @@ public class GreetingsController {
 			throws Exception {
 		businessApplicationDetailsDAO.storeBusinessApplicationData(businessApplicationDetailsTO);
 	}
+	
+	@PostMapping(value = "/updateBusinessApplicationDetails")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
+	public void updateBusinessApplicationDetails(@RequestBody BusinessApplicationDetailsTO businessApplicationDetailsTO)
+			throws Exception {
+		businessApplicationDetailsDAO.updateBusinessApplicationData(businessApplicationDetailsTO);
+	}
 
 	@RequestMapping(value = "/retrieveApplicationLifecycleByApplicationId/{applicationId}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
