@@ -92,7 +92,7 @@ public class GreetingsController {
 	@PostMapping("/updateDepartmentDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public int updateDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
+	public @ResponseBody int updateDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
 		return departmentDAO.updateDepartmentDetails(departmentTO);
 	}
 
