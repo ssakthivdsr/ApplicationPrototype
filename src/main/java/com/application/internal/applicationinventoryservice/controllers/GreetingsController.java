@@ -92,8 +92,8 @@ public class GreetingsController {
 	@PostMapping("/updateDepartmentDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void updateDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
-		departmentDAO.updateDepartmentDetails(departmentTO);
+	public int updateDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
+		return departmentDAO.updateDepartmentDetails(departmentTO);
 	}
 
 	@RequestMapping(value = "/retrieveApplicationById/{id}", method = RequestMethod.GET)

@@ -56,7 +56,6 @@ public class DepartmentDAO {
 		String sql = "update assessment.department set name=:departmentName, owner = :departmentOwner where id=:id";
 		SqlParameterSource parameters = new MapSqlParameterSource().addValue("departmentName", departmentTO.getDepartmentName())
 				.addValue("departmentOwner", departmentTO.getDepartmentOwner()).addValue("id", departmentTO.getDepartmentId());
-
 		return template.update(sql, parameters);
 	}
 
