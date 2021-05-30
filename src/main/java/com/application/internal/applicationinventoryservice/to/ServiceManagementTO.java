@@ -3,7 +3,8 @@ package com.application.internal.applicationinventoryservice.to;
 public class ServiceManagementTO {
 	private int serviceManagementId;
 	private int applicationId;
-	public ServiceManagementQuestionAnswerTO[] questionAnswer;
+	private int questionId;
+	private String answer;
 
 	public int getServiceManagementId() {
 		return serviceManagementId;
@@ -21,12 +22,20 @@ public class ServiceManagementTO {
 		this.applicationId = applicationId;
 	}
 
-	public ServiceManagementQuestionAnswerTO[] getQuestionAnswer() {
-		return questionAnswer;
+	public int getQuestionId() {
+		return questionId;
 	}
 
-	public void setQuestionAnswer(ServiceManagementQuestionAnswerTO[] questionAnswer) {
-		this.questionAnswer = questionAnswer;
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 }

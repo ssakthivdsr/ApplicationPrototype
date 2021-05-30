@@ -218,16 +218,17 @@ public class GreetingsController {
 	@RequestMapping(value = "/retrieveServiceManagementByApplicationId/{applicationId}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public @ResponseBody List<ServiceManagementRetrieveTO> retrieveServiceManagementByApplicationId(
+	public @ResponseBody List<ServiceManagementTO> retrieveServiceManagementByApplicationId(
 			@PathVariable("applicationId") String id) throws Exception {
 		return serviceManagementDAO.retrieveServiceManagementByApplicationId(Integer.parseInt(id));
 	}
 
-	@PostMapping("/storeServiceManagementDetails")
+	@PostMapping("/storeAndupdateServiceManagementDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void storeServiceManagementDetails(@RequestBody ServiceManagementTO serviceManagementTO) throws Exception {
-		serviceManagementDAO.storeServiceManagementDetails(serviceManagementTO);
+	public void storeAndupdateServiceManagementDetails(
+			@RequestBody List<ServiceManagementTO> ServiceManagementTO) throws Exception {
+		serviceManagementDAO.storeAndupdateServiceManagementDetails(ServiceManagementTO);
 	}
 
 	@RequestMapping(value = "/retrieveVendorPackageByApplicationId/{applicationId}", method = RequestMethod.GET)
