@@ -29,7 +29,6 @@ import com.application.internal.applicationinventoryservice.to.BusinessApplicati
 import com.application.internal.applicationinventoryservice.to.BusinessPartnerTO;
 import com.application.internal.applicationinventoryservice.to.DepartmentTO;
 import com.application.internal.applicationinventoryservice.to.RegulatoryTO;
-import com.application.internal.applicationinventoryservice.to.ServiceManagementRetrieveTO;
 import com.application.internal.applicationinventoryservice.to.ServiceManagementTO;
 import com.application.internal.applicationinventoryservice.to.VendorPackageTO;
 
