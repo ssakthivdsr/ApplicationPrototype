@@ -30,48 +30,20 @@ public class RegulatoryDAO {
 		return result;
 	}
 
-	public void storeRegulatoryDetails(List<RegulatoryTO> regulatoryTO) throws SQLException {
-
-		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		for (int i = 0; i < regulatoryTO.size(); i++) {
-			String sql = "insert into assessment.regulatory_details values(DEFAULT,:applicationId,:regulatoryValue)";
-			Map params = new HashMap();
-			params.put("applicationId", regulatoryTO.get(i).getApplicationId());
-			params.put("regulatoryValue", regulatoryTO.get(i).getRegulatoryValue());
-			template.update(sql, params);
-		}
-
-	}
-
-	public void updateRegulatoryDetails(List<RegulatoryTO> regulatoryTO) throws SQLException {
+	
+	
+	public void storeAndUpdateRegulatoryDetails(List<RegulatoryTO> regulatoryTO) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String deleteRegulatory = "delete from assessment.regulatory_details where application_id=:id";
 		SqlParameterSource param = new MapSqlParameterSource("id", regulatoryTO.get(0).getApplicationId());
 		template.update(deleteRegulatory, param);
-		for (int i = 0; i < regulatoryTO.size(); i++) {
+		for (RegulatoryTO regulatoryValue:regulatoryTO) {
 			String sql = "insert into assessment.regulatory_details values(DEFAULT,:applicationId,:regulatoryValue)";
 			Map params = new HashMap();
-			params.put("applicationId", regulatoryTO.get(i).getApplicationId());
-			params.put("regulatoryValue", regulatoryTO.get(i).getRegulatoryValue());
+			params.put("applicationId", regulatoryValue.getApplicationId());
+			params.put("regulatoryValue", regulatoryValue.isRegulatoryValue());
 			template.update(sql, params);
-		}
-
-	}
-	
-	public void storeAndUpdateRegulatoryDetails(RegulatoryTO regulatoryTO) throws SQLException {
-		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		if(regulatoryTO.getRegulatoryValue().size()!=0) {
-			String deleteSql = "delete from  assessment.regulatory_details where application_id=:id";
-			SqlParameterSource param = new MapSqlParameterSource("id", regulatoryTO.getApplicationId());
-			template.update(deleteSql, param);
-			String sql = "insert into assessment.regulatory_details values(DEFAULT,:applicationId,:regulatoryValue)";
-			Map params = new HashMap();
-			params.put("applicationId",regulatoryTO.getApplicationId());
-			for(String selectedRegulatoryValue:regulatoryTO.getRegulatoryValue()) {
-				params.put("regulatoryValue", selectedRegulatoryValue);
-				template.update(sql, params);
 			}
-		}
 		
 	}
 

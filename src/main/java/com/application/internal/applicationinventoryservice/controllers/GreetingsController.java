@@ -29,6 +29,7 @@ import com.application.internal.applicationinventoryservice.to.BusinessApplicati
 import com.application.internal.applicationinventoryservice.to.BusinessPartnerTO;
 import com.application.internal.applicationinventoryservice.to.DepartmentTO;
 import com.application.internal.applicationinventoryservice.to.RegulatoryTO;
+import com.application.internal.applicationinventoryservice.to.ServiceManagementRetrieveTO;
 import com.application.internal.applicationinventoryservice.to.ServiceManagementTO;
 import com.application.internal.applicationinventoryservice.to.VendorPackageTO;
 
@@ -203,14 +204,14 @@ public class GreetingsController {
 	@PostMapping("/storeRegulatoryDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void storeRegulatoryDetails(@RequestBody RegulatoryTO regulatoryTO) throws Exception {
+	public void storeRegulatoryDetails(@RequestBody List<RegulatoryTO> regulatoryTO) throws Exception {
 		regulatoryDAO.storeAndUpdateRegulatoryDetails(regulatoryTO);
 	}
 	
 	@PostMapping("/updateRegulatoryDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void updateRegulatoryDetails(@RequestBody RegulatoryTO regulatoryTO) throws Exception {
+	public void updateRegulatoryDetails(@RequestBody List<RegulatoryTO> regulatoryTO) throws Exception {
 		regulatoryDAO.storeAndUpdateRegulatoryDetails(regulatoryTO);
 	}
 

@@ -1,11 +1,10 @@
 package com.application.internal.applicationinventoryservice.to;
 
-import java.util.List;
 
 public class RegulatoryTO {
 	private int regulatoryId;
 	private int applicationId;
-	private List<String> regulatoryValue;
+	private boolean regulatoryValue;
 	
 	public int getRegulatoryId() {
 		return regulatoryId;
@@ -19,10 +18,12 @@ public class RegulatoryTO {
 	public void setApplicationId(int applicationId) {
 		this.applicationId = applicationId;
 	}
-	public List<String> getRegulatoryValue() {
+	public boolean isRegulatoryValue() {
 		return regulatoryValue;
 	}
-	public void setRegulatoryValue(List<String> regulatoryValue) {
+	public void setRegulatoryValue(boolean regulatoryValue) {
 		this.regulatoryValue = regulatoryValue;
 	}
+	
+	
 }
