@@ -14,7 +14,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 public class DataBaseConfig {
 	
 	private String databaseDriver = "jdbc:postgresql://";
-	private String hostName = "ec2-23-23-128-222.compute-1.amazonaws.com:5432/ddv34mle2ilkan";
+	private String hostName = "ec2-34-193-101-0.compute-1.amazonaws.com:5432/ddv34mle2ilkan";
 	private String userName = "uzkyokvvejpdfm";
 	private String cred = "7fd18db309bb1aff144af0b29cdc8882f46ab38118a3b99385ac98401bab6aeb";
 
@@ -29,7 +29,7 @@ public class DataBaseConfig {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
 		dataSource.setUrl(
-				"jdbc:postgresql://ec2-23-23-128-222.compute-1.amazonaws.com:5432/d3tjkj6uhv9da3?sslmode=require");
+				"jdbc:postgresql://ec2-34-193-101-0.compute-1.amazonaws.com:5432/ddv34mle2ilkan?sslmode=require");
 		dataSource.setUsername(userName);
 		dataSource.setPassword(cred);
 		return dataSource;
