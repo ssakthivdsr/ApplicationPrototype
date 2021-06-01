@@ -14,9 +14,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 public class DataBaseConfig {
 	
 	private String databaseDriver = "jdbc:postgresql://";
-	private String hostName = "ec2-23-23-128-222.compute-1.amazonaws.com:5432/d3tjkj6uhv9da3";
-	private String userName = "jmucacukmuqirk";
-	private String cred = "c10b854e470d25669c14c1f736320378a62cbaaa440bdb187b19ca63075c7c6b";
+	private String hostName = "ec2-23-23-128-222.compute-1.amazonaws.com:5432/ddv34mle2ilkan";
+	private String userName = "uzkyokvvejpdfm";
+	private String cred = "7fd18db309bb1aff144af0b29cdc8882f46ab38118a3b99385ac98401bab6aeb";
 
 	@Bean
 	public Connection connection() throws SQLException {
