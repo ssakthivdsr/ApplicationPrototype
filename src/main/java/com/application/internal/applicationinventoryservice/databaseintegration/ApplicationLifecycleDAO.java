@@ -32,7 +32,6 @@ public class ApplicationLifecycleDAO {
 
 	public void storeAndupdateApplicationLifecycleDetails(List<ApplicationLifecycleTO> ApplicationLifecycleTO)
 			throws SQLException {
-		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 
 		if (countApplicationId(ApplicationLifecycleTO) > 0) {
 			updateApplicationLifecycleDetails(ApplicationLifecycleTO);
@@ -54,11 +53,11 @@ public class ApplicationLifecycleDAO {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String sql = "insert into assessment.application_life_cycle values(DEFAULT,:applicationId,:questionId,:answer)";
 		for (int i = 0; i < 14; i++) {
-			Map Param = new HashMap();
-			Param.put("applicationId", ApplicationLifecycleTO.get(i).getApplicationId());
-			Param.put("questionId", ApplicationLifecycleTO.get(i).getQuestionId());
-			Param.put("answer", ApplicationLifecycleTO.get(i).getAnswer());
-			template.update(sql, Param);
+			Map param = new HashMap();
+			param.put("applicationId", ApplicationLifecycleTO.get(i).getApplicationId());
+			param.put("questionId", ApplicationLifecycleTO.get(i).getQuestionId());
+			param.put("answer", ApplicationLifecycleTO.get(i).getAnswer());
+			template.update(sql, param);
 		}
 	}
 	
