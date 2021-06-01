@@ -22,14 +22,12 @@ import com.application.internal.applicationinventoryservice.databaseintegration.
 import com.application.internal.applicationinventoryservice.databaseintegration.RegulatoryDAO;
 import com.application.internal.applicationinventoryservice.databaseintegration.ServiceManagementDAO;
 import com.application.internal.applicationinventoryservice.databaseintegration.VendorPackageDAO;
-import com.application.internal.applicationinventoryservice.to.ApplicationLifecycleRetrieveTO;
 import com.application.internal.applicationinventoryservice.to.ApplicationLifecycleTO;
 import com.application.internal.applicationinventoryservice.to.ApplicationTO;
 import com.application.internal.applicationinventoryservice.to.BusinessApplicationDetailsTO;
 import com.application.internal.applicationinventoryservice.to.BusinessPartnerTO;
 import com.application.internal.applicationinventoryservice.to.DepartmentTO;
 import com.application.internal.applicationinventoryservice.to.RegulatoryTO;
-import com.application.internal.applicationinventoryservice.to.ServiceManagementRetrieveTO;
 import com.application.internal.applicationinventoryservice.to.ServiceManagementTO;
 import com.application.internal.applicationinventoryservice.to.VendorPackageTO;
 
@@ -173,24 +171,17 @@ public class GreetingsController {
 	@RequestMapping(value = "/retrieveApplicationLifecycleByApplicationId/{applicationId}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public @ResponseBody List<ApplicationLifecycleRetrieveTO> retrieveApplicationLifecycleByApplicationId(
+	public @ResponseBody List<ApplicationLifecycleTO> retrieveApplicationLifecycleByApplicationId(
 			@PathVariable("applicationId") String id) throws Exception {
 		return applicationLifecycleDAO.retrieveApplicationLifecycleByApplicationId(Integer.parseInt(id));
 	}
 
-	@PostMapping("/storeApplicationLifecycleDetails")
+	@PostMapping("/storeAndupdateApplicationLifecycleDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void storeApplicationLifecycleDetails(@RequestBody ApplicationLifecycleTO applicationLifecycleTO)
-			throws Exception {
-		applicationLifecycleDAO.storeApplicationLifecycleDetails(applicationLifecycleTO);
-	}
-	
-	@PostMapping("/updateApplicationLifecycleDetails")
-	@ResponseStatus(HttpStatus.OK)
-	@CrossOrigin
-	public void updateApplicationLifecycleDetails(@RequestBody List<ApplicationLifecycleRetrieveTO> ApplicationLifecycleRetrieveTO) throws Exception {
-		applicationLifecycleDAO.updateApplicationLifecycleDetails(ApplicationLifecycleRetrieveTO);
+	public void storeAndupdateApplicationLifecycleDetails(
+			@RequestBody List<ApplicationLifecycleTO> ApplicationLifecycleTO) throws Exception {
+		applicationLifecycleDAO.storeAndupdateApplicationLifecycleDetails(ApplicationLifecycleTO);
 	}
 
 	@RequestMapping(value = "/retrieveRegulatoryByApplicationId/{applicationId}", method = RequestMethod.GET)

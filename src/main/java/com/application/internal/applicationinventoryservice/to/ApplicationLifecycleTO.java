@@ -4,7 +4,8 @@ public class ApplicationLifecycleTO {
 
 	private int id;
 	private int applicationId;
-	public ApplicationLifecycleQuestionAnswerTO[] questionAnswer;
+	private int questionId;
+	private String answer;
 
 	public int getId() {
 		return id;
@@ -22,12 +23,20 @@ public class ApplicationLifecycleTO {
 		this.applicationId = applicationId;
 	}
 
-	public ApplicationLifecycleQuestionAnswerTO[] getQuestionAndAnswer() {
-		return questionAnswer;
+	public int getQuestionId() {
+		return questionId;
 	}
 
-	public void setQuestionAndAnswer(ApplicationLifecycleQuestionAnswerTO[] questionAndAnswer) {
-		this.questionAnswer = questionAndAnswer;
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 	
 }
