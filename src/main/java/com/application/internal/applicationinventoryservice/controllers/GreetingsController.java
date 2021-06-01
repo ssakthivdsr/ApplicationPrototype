@@ -140,8 +140,8 @@ public class GreetingsController {
 	@PostMapping("/updateBusinessPartnerDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public int updateBusinessPartnerDetails(@RequestBody BusinessPartnerTO businessPartnerTO) throws Exception {
-		return businessPartnerDAO.updateBusinessPartnerDetails(businessPartnerTO);
+	public void updateBusinessPartnerDetails(@RequestBody BusinessPartnerTO businessPartnerTO) throws Exception {
+		businessPartnerDAO.storeBusinessPartnerDetails(businessPartnerTO);
 	}
 
 	@RequestMapping(value = "/retrieveBusinessApplicationByApplicationId/{applicationId}", method = RequestMethod.GET)
@@ -234,6 +234,13 @@ public class GreetingsController {
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
 	public void storeVendorPackageDetails(@RequestBody VendorPackageTO vendorPackageTO) throws Exception {
+		vendorPackageDAO.storeVendorPackageDetails(vendorPackageTO);
+	}
+	
+	@PostMapping("/updateVendorPackageDetails")
+	@ResponseStatus(HttpStatus.OK)
+	@CrossOrigin
+	public void updateVendorPackageDetails(@RequestBody VendorPackageTO vendorPackageTO) throws Exception {
 		vendorPackageDAO.storeVendorPackageDetails(vendorPackageTO);
 	}
 
