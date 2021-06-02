@@ -33,6 +33,13 @@ public class ApplicationDAO {
 	public List<ApplicationTO> retrieveAllApplicationDetails() {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 //		String query = "SELECT id as applicationId, dept_id as departmentId, name as applicationName, component_manager as nameOfTheComponentManager, sme as smeProvidedByManagers, primary_tech_sme as nameOfPrimaryTechSME, primary_ba as nameOfPrimaryBA, descr as applicationDescription, lob as lineOfBusiness, func as functionality FROM assessment.application order by id asc";
+		
+//		SELECT a.id as applicationId, a.dept_id as departmentId, d.name as departmentName, a.name as applicationName, 
+//		 a.component_manager as nameOfTheComponentManager, a.sme as smeProvidedByManagers, a.primary_tech_sme as nameOfPrimaryTechSME,
+//		 a.primary_ba as nameOfPrimaryBA, 	a.descr as applicationDescription, lob as lineOfBusiness, func as functionality,
+//		 c.business_value as businessValue, c.agility as agility, c.business_total as businessTotal,c.tech_total as techTotal
+//		 FROM assessment.application as a,assessment.department as d, assessment.application_score as c
+//		 where a.dept_id = d.id and a.id = c.application_id;
 		String query = "SELECT \r\n"
 				+ "	a.id as applicationId, a.dept_id as departmentId, d.name as departmentName, a.name as applicationName, \r\n"
 				+ "	a.component_manager as nameOfTheComponentManager, a.sme as smeProvidedByManagers, a.primary_tech_sme as nameOfPrimaryTechSME, \r\n"

@@ -23,6 +23,7 @@ CREATE SEQUENCE assessment.application_life_cycle_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.service_management_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.service_management_questions_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.vendor_package_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_score START 1 INCREMENT 1;
 -----------------------------------------------------------------------
 
 CREATE TABLE assessment.line_of_business(
@@ -289,6 +290,18 @@ id, question)
  ('45','Uses Business Process?'),
  ('46','Workgroup?'),
  ('47','Configuration Item?');
+ --------------------------------------------------
+ 
+ CREATE TABLE assessment.application_score (
+    id integer DEFAULT nextval('assessment.application_score_sequence'),
+	application_id integer,
+	business_value integer,
+	agility integer,
+	business_total integer,
+	tech_total integer,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_app_score_app_id FOREIGN KEY(application_id) REFERENCES assessment.application(id)   
+);
  
 ----------------------------------------------------------
 
