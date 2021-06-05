@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
+import com.application.internal.applicationinventoryservice.scoreengine.BusinessApplicationRuleEngine;
 import com.application.internal.applicationinventoryservice.to.BusinessApplicationDetailsTO;
 import com.application.internal.applicationinventoryservice.to.ChannelTO;
 import com.application.internal.applicationinventoryservice.to.TransactionObject;
@@ -31,7 +32,10 @@ public class BusinessApplicationDetailsDAO {
 	@Autowired
 	private DataSource dataSource;
 
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
+	@Autowired
+	private BusinessApplicationRuleEngine ruleEngine;
+
+	@SuppressWarnings({ "unchecked", "rawtypes"})
 	public BusinessApplicationDetailsTO retrieveBusinessApplicationData(int applicationId) {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String userRetrievalQuery = "select id as id,application_id as applicationId,user_type as userType,volume as volume, null as volumeObject from assessment.application_user_details where application_id=:applicationId";
@@ -190,6 +194,20 @@ public class BusinessApplicationDetailsDAO {
 				template.update(AdditionalDetails, params);
 			}
 		}
+
+		ruleEngine.setBusinessApplicationScore(businessApplicationDetailsTO);
+		count = 0;
+		String scoreSql = "select count(*) as count from assessment.application_score where application_id = :applicationId";
+		SqlParameterSource scoreParam = new MapSqlParameterSource("applicationId",
+				businessApplicationDetailsTO.getBusinessApplicationQuestionAnswer().get(0).getApplicationId());
+		count = template.queryForObject(scoreSql, scoreParam, Integer.class);
+		String updateSql = "update assessment.application_score set business_value = :businessValue, agility = :agility,business_total = :businessTotal where application_id=:applicationId";
+		SqlParameterSource parameters = new MapSqlParameterSource()
+				.addValue("businessTotal", ruleEngine.getBusinessTotal())
+				.addValue("businessValue", ruleEngine.getBusinessValue()).addValue("agility", ruleEngine.getAgility())
+				.addValue("applicationId",
+						businessApplicationDetailsTO.getBusinessApplicationQuestionAnswer().get(0).getApplicationId());
+		template.update(updateSql, parameters);
 	}
 
 }

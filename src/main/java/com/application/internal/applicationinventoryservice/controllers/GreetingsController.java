@@ -86,7 +86,7 @@ public class GreetingsController {
 	public void storeDepartmentDetails(@RequestBody DepartmentTO departmentTO) throws Exception {
 		departmentDAO.storeDepartmentDetails(departmentTO);
 	}
-	
+
 	@PostMapping("/updateDepartmentDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
@@ -198,7 +198,7 @@ public class GreetingsController {
 	public void storeRegulatoryDetails(@RequestBody List<RegulatoryTO> regulatoryTO) throws Exception {
 		regulatoryDAO.storeAndUpdateRegulatoryDetails(regulatoryTO);
 	}
-	
+
 	@PostMapping("/updateRegulatoryDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
@@ -217,8 +217,8 @@ public class GreetingsController {
 	@PostMapping("/storeAndupdateServiceManagementDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin
-	public void storeAndupdateServiceManagementDetails(
-			@RequestBody List<ServiceManagementTO> ServiceManagementTO) throws Exception {
+	public void storeAndupdateServiceManagementDetails(@RequestBody List<ServiceManagementTO> ServiceManagementTO)
+			throws Exception {
 		serviceManagementDAO.storeAndupdateServiceManagementDetails(ServiceManagementTO);
 	}
 
@@ -236,7 +236,7 @@ public class GreetingsController {
 	public void storeVendorPackageDetails(@RequestBody VendorPackageTO vendorPackageTO) throws Exception {
 		vendorPackageDAO.storeVendorPackageDetails(vendorPackageTO);
 	}
-	
+
 	@PostMapping("/updateVendorPackageDetails")
 	@ResponseStatus(HttpStatus.OK)
 	@CrossOrigin

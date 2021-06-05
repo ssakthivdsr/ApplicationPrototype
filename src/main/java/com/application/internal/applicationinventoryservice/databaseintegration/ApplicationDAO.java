@@ -1,9 +1,7 @@
 package com.application.internal.applicationinventoryservice.databaseintegration;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -23,7 +21,8 @@ public class ApplicationDAO {
 
 	public ApplicationTO retrieveApplicationData(int id) {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-		String query = "SELECT id as applicationId, dept_id as departmentId, name as applicationName, component_manager as nameOfTheComponentManager, sme as smeProvidedByManagers, primary_tech_sme as nameOfPrimaryTechSME, primary_ba as nameOfPrimaryBA, descr as applicationDescription, lob as lineOfBusiness, func as functionality FROM assessment.application where id=:id";
+//		String query = "SELECT id as applicationId, dept_id as departmentId, name as applicationName, component_manager as nameOfTheComponentManager, sme as smeProvidedByManagers, primary_tech_sme as nameOfPrimaryTechSME, primary_ba as nameOfPrimaryBA, descr as applicationDescription, lob as lineOfBusiness, func as functionality FROM assessment.application where id=:id";
+		String query = "SELECT a.id as applicationId, a.dept_id as departmentId, d.name as departmentName, a.name as applicationName, a.component_manager as nameOfTheComponentManager, a.sme as smeProvidedByManagers, a.primary_tech_sme as nameOfPrimaryTechSME, a.primary_ba as nameOfPrimaryBA, a.descr as applicationDescription, a.lob as lineOfBusiness, a.func as functionality, c.business_value as businessValue, c.agility as agility, c.business_total as businessTotal,c.tech_total as techTotal FROM assessment.application as a, assessment.department as d, assessment.application_score as c where a.dept_id = d.id and a.id = :id and c.application_id = :id";
 		SqlParameterSource param = new MapSqlParameterSource("id", id);
 		ApplicationTO result = template.queryForObject(query, param,
 				BeanPropertyRowMapper.newInstance(ApplicationTO.class));
@@ -33,19 +32,14 @@ public class ApplicationDAO {
 	public List<ApplicationTO> retrieveAllApplicationDetails() {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 //		String query = "SELECT id as applicationId, dept_id as departmentId, name as applicationName, component_manager as nameOfTheComponentManager, sme as smeProvidedByManagers, primary_tech_sme as nameOfPrimaryTechSME, primary_ba as nameOfPrimaryBA, descr as applicationDescription, lob as lineOfBusiness, func as functionality FROM assessment.application order by id asc";
-		
-//		SELECT a.id as applicationId, a.dept_id as departmentId, d.name as departmentName, a.name as applicationName, 
-//		 a.component_manager as nameOfTheComponentManager, a.sme as smeProvidedByManagers, a.primary_tech_sme as nameOfPrimaryTechSME,
-//		 a.primary_ba as nameOfPrimaryBA, 	a.descr as applicationDescription, lob as lineOfBusiness, func as functionality,
-//		 c.business_value as businessValue, c.agility as agility, c.business_total as businessTotal,c.tech_total as techTotal
-//		 FROM assessment.application as a,assessment.department as d, assessment.application_score as c
-//		 where a.dept_id = d.id and a.id = c.application_id;
-		String query = "SELECT \r\n"
-				+ "	a.id as applicationId, a.dept_id as departmentId, d.name as departmentName, a.name as applicationName, \r\n"
-				+ "	a.component_manager as nameOfTheComponentManager, a.sme as smeProvidedByManagers, a.primary_tech_sme as nameOfPrimaryTechSME, \r\n"
-				+ "	a.primary_ba as nameOfPrimaryBA, 	a.descr as applicationDescription, lob as lineOfBusiness, func as functionality \r\n"
-				+ "	FROM assessment.application as a,assessment.department as d\r\n" + "	where a.dept_id = d.id\r\n"
-				+ "	order by a.id asc";
+
+		String query = "SELECT a.id as applicationId, a.dept_id as departmentId, d.name as departmentName, a.name as applicationName, a.component_manager as nameOfTheComponentManager, a.sme as smeProvidedByManagers, a.primary_tech_sme as nameOfPrimaryTechSME, a.primary_ba as nameOfPrimaryBA, a.descr as applicationDescription, a.lob as lineOfBusiness, a.func as functionality, c.business_value as businessValue, c.agility as agility, c.business_total as businessTotal,c.tech_total as techTotal FROM assessment.application as a, assessment.department as d, assessment.application_score as c where a.dept_id = d.id and c.application_id=a.id";
+//		String query = "SELECT \r\n"
+//				+ "	a.id as applicationId, a.dept_id as departmentId, d.name as departmentName, a.name as applicationName, \r\n"
+//				+ "	a.component_manager as nameOfTheComponentManager, a.sme as smeProvidedByManagers, a.primary_tech_sme as nameOfPrimaryTechSME, \r\n"
+//				+ "	a.primary_ba as nameOfPrimaryBA, 	a.descr as applicationDescription, lob as lineOfBusiness, func as functionality \r\n"
+//				+ "	FROM assessment.application as a,assessment.department as d\r\n" + "	where a.dept_id = d.id\r\n"
+//				+ "	order by a.id asc";
 		List<ApplicationTO> result = template.query(query, new BeanPropertyRowMapper(ApplicationTO.class));
 		return result;
 	}
@@ -54,6 +48,7 @@ public class ApplicationDAO {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		KeyHolder holder = new GeneratedKeyHolder();
 		String sql = "insert into assessment.application values(DEFAULT,:applicationName,:applicationDescription,:departmentId,:lineOfBusiness,:functionality,:nameOfTheComponentManager,:smeProvidedByManagers,:nameOfPrimaryTechSME,:nameOfPrimaryBA)";
+		String scoreSql = "insert into assessment.application_score values(DEFAULT,:applicationId,0,0,0,0)";
 		/*
 		 * Map params = new HashMap(); params.put("applicationName",
 		 * applicationTO.getApplicationName()); params.put("applicationDescription",
@@ -81,6 +76,9 @@ public class ApplicationDAO {
 				.addValue("nameOfPrimaryBA", applicationTO.getNameOfPrimaryBA());
 		String[] fields = { "id" };
 		template.update(sql, parameters, holder, fields);
+		SqlParameterSource scoreParameters = new MapSqlParameterSource().addValue("applicationId",
+				holder.getKey().intValue());
+		template.update(scoreSql, scoreParameters);
 		return holder.getKey().intValue();
 	}
 

@@ -23,7 +23,7 @@ CREATE SEQUENCE assessment.application_life_cycle_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.service_management_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.service_management_questions_sequence START 1 INCREMENT 1;
 CREATE SEQUENCE assessment.vendor_package_sequence START 1 INCREMENT 1;
-CREATE SEQUENCE assessment.application_score START 1 INCREMENT 1;
+CREATE SEQUENCE assessment.application_score_sequence START 1 INCREMENT 1;
 -----------------------------------------------------------------------
 
 CREATE TABLE assessment.line_of_business(
