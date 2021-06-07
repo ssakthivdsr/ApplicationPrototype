@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
+import com.application.internal.applicationinventoryservice.scoreengine.TechAttributesRuleEngine;
 import com.application.internal.applicationinventoryservice.to.ServiceManagementTO;
 
 @Component
@@ -21,6 +22,9 @@ public class ServiceManagementDAO {
 
 	@Autowired
 	private DataSource dataSource;
+
+	@Autowired
+	private TechAttributesRuleEngine techAttributesRuleEngine;
 
 	public List<ServiceManagementTO> retrieveServiceManagementByApplicationId(int applicationId) {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
@@ -33,12 +37,18 @@ public class ServiceManagementDAO {
 
 	public void storeAndupdateServiceManagementDetails(List<ServiceManagementTO> ServiceManagementTO)
 			throws SQLException {
-		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+
 
 		if (countApplicationId(ServiceManagementTO) > 0) {
 			updateServiceManagementDetails(ServiceManagementTO);
 		} else {
 			storeServiceManagementDetails(ServiceManagementTO);
+		}
+		
+		if (countApplicationScoreId(ServiceManagementTO) > 0) {
+			updateTechTotal(ServiceManagementTO);
+		} else {
+			storeTechTotal(ServiceManagementTO);
 		}
 	}
 
@@ -73,6 +83,36 @@ public class ServiceManagementDAO {
 			updateParam.put("answer", ServiceManagementTO.get(i).getAnswer());
 			template.update(updateQuery, updateParam);
 		}
+	}
+
+	public int countApplicationScoreId(List<ServiceManagementTO> ServiceManagementTO) throws SQLException {
+		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+		String queryCount = "select count (*) as count FROM assessment.application_score where application_id= :applicationId";
+		SqlParameterSource countParam = new MapSqlParameterSource("applicationId",
+				ServiceManagementTO.get(0).getApplicationId());
+		int count = template.queryForObject(queryCount, countParam, Integer.class);
+		return count;
+	}
+
+	public void storeTechTotal(List<ServiceManagementTO> ServiceManagementTO) throws SQLException {
+		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+		String sql = "insert into assessment.application_score values(DEFAULT,:applicationId,:business_value,:agility,:business_total,:tech_total)";
+		Map Param = new HashMap();
+		Param.put("applicationId", ServiceManagementTO.get(0).getApplicationId());
+		Param.put("business_value", 0);
+		Param.put("agility", 0);
+		Param.put("business_total", 0);
+		Param.put("tech_total", techAttributesRuleEngine.techAttributeTotal(ServiceManagementTO));
+		template.update(sql, Param);
+	}
+
+	public void updateTechTotal(List<ServiceManagementTO> ServiceManagementTO) throws SQLException {
+		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
+		String updateQuery = "UPDATE assessment.application_score SET tech_total = :tech_total  WHERE application_id = :applicationId";
+		Map updateParam = new HashMap();
+		updateParam.put("applicationId", ServiceManagementTO.get(0).getApplicationId());
+		updateParam.put("tech_total", techAttributesRuleEngine.techAttributeTotal(ServiceManagementTO));
+		template.update(updateQuery, updateParam);
 	}
 
 }
