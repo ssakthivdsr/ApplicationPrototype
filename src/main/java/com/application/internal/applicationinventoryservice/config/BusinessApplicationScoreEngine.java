@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-//@Configuration
 @Component
 public class BusinessApplicationScoreEngine {
 	private Map<String, String> transactionTypes;
@@ -48,7 +47,7 @@ public class BusinessApplicationScoreEngine {
 		pasProductType = pasProductType();
 		pasProductVolume = pasProductVolume();
 		pasProductWrittenPremium = pasProductWrittenPremium();
-		productVariants = pasProductWrittenPremium();
+		productVariants = productVariants();
 		systemEndorsement = systemEndorsement();
 		backToPreviousTerms = backToPreviousTerms();
 		ratingAutomated = ratingAutomated();
@@ -149,7 +148,6 @@ public class BusinessApplicationScoreEngine {
 		productLaunchTime.put("3-6 months", "4");
 		productLaunchTime.put("6-12 months", "10");
 		productLaunchTime.put("greater than 12 months", "20");
-		// productLaunchTime.put("?????????????", "35");
 		return productLaunchTime;
 	}
 
@@ -188,8 +186,6 @@ public class BusinessApplicationScoreEngine {
 		productVariants.put("less than 10 products", "1");
 		productVariants.put("10-20 products", "4");
 		productVariants.put("greater than 20 products", "10");
-//		productVariants.put("???", "10");
-//		productVariants.put("???", "10");
 		return productVariants;
 	}
 
@@ -227,21 +223,19 @@ public class BusinessApplicationScoreEngine {
 		return ratingAutomatedIntegrated;
 	}
 
-//check
 	public Map<String, String> internalInterfacingAppCount() {
 		Map<String, String> internalInterfacingAppCount = new HashMap<>();
-		internalInterfacingAppCount.put("<5 Interfaces", "1");
+		internalInterfacingAppCount.put("less than 5 Interfaces", "1");
 		internalInterfacingAppCount.put("5-10 Interfaces", "4");
-		internalInterfacingAppCount.put("> 10 Interfaces", "10");
+		internalInterfacingAppCount.put("greater 10 Interfaces", "10");
 		return internalInterfacingAppCount;
 	}
 
-//check
 	public Map<String, String> externalInterfacingAppCount() {
 		Map<String, String> externalInterfacingAppCount = new HashMap<>();
-		externalInterfacingAppCount.put("<5 Interfaces", "1");
+		externalInterfacingAppCount.put("less than 5 Interfaces", "1");
 		externalInterfacingAppCount.put("5-10 Interfaces", "4");
-		externalInterfacingAppCount.put("> 10 Interfaces", "10");
+		externalInterfacingAppCount.put("greater 10 Interfaces", "10");
 		return externalInterfacingAppCount;
 	}
 
@@ -255,7 +249,6 @@ public class BusinessApplicationScoreEngine {
 		return NumberOfTransDiffBetweenChannels;
 	}
 
-//check
 	public Map<String, String> pasUsedStateCount() {
 		Map<String, String> pasUsedStateCount = new HashMap<>();
 		pasUsedStateCount.put("<10 States", "1");

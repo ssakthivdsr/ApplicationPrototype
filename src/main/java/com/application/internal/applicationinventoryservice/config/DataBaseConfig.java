@@ -34,23 +34,4 @@ public class DataBaseConfig {
 		dataSource.setPassword(cred);
 		return dataSource;
 	}
-	 
-	
-	/*
-	 * private String databaseDriver = "jdbc:postgresql://"; private String hostName
-	 * = "ec2-52-87-107-83.compute-1.amazonaws.com:5432/dbih80evtcg5ij"; private
-	 * String userName = "enasdlqxihdtmq"; private String cred =
-	 * "e1bbf3841ddfd79e4524eaae06284467dc719e58c9d11d70fcd91a20f2ac22ab";
-	 * 
-	 * @Bean public Connection connection() throws SQLException { String dburl =
-	 * databaseDriver + hostName + "?user=" + userName + "&password=" + cred +
-	 * "&sslmode=require"; return DriverManager.getConnection(dburl); }
-	 * 
-	 * @Bean public DataSource dataSource() { DriverManagerDataSource dataSource =
-	 * new DriverManagerDataSource();
-	 * dataSource.setDriverClassName("org.postgresql.Driver"); dataSource.setUrl(
-	 * "jdbc:postgresql://ec2-52-87-107-83.compute-1.amazonaws.com:5432/dbih80evtcg5ij?sslmode=require"
-	 * ); dataSource.setUsername(userName); dataSource.setPassword(cred); return
-	 * dataSource; }
-	 */
 }

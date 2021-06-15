@@ -3,7 +3,6 @@ package com.application.internal.applicationinventoryservice.scoreengine;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
-
 import com.application.internal.applicationinventoryservice.config.BusinessApplicationScoreEngine;
 import com.application.internal.applicationinventoryservice.to.BusinessApplicationDetailsTO;
 
@@ -76,9 +75,8 @@ public class BusinessApplicationRuleEngine {
 
 		this.agility = userTypesScore + diffInternetAndAgentScore + uwAutomatedScore
 				+ uwAutomatedTransactionVolumeSTPScore + transactionTypeOverridenScore + projectWBPresenceScore
-				+ productLaunchTimeScore + productVariantsScore + systemEndorsementScore + backToPreviousTermsScore
-				+ ratingAutomatedScore + ratingAutomatedIntegratedScore + internalInterfacingAppCountScore
-				+ externalInterfacingAppCountScore + numberOfTransDiffBetweenChannelsScore;
+				+ productLaunchTimeScore + systemEndorsementScore + backToPreviousTermsScore + ratingAutomatedScore
+				+ ratingAutomatedIntegratedScore;
 	}
 
 	private int retrieveTransactionTypesScore(BusinessApplicationDetailsTO baTO) {
@@ -92,7 +90,7 @@ public class BusinessApplicationRuleEngine {
 	}
 
 	private int retrieveTransactionVolumeScore(BusinessApplicationDetailsTO baTO) {
-		int count = 0;
+		long count = 0;
 		String transactionVolumeCount = "";
 		for (int i = 0; i < baTO.getTransactions().size(); i++) {
 			count = count + baTO.getTransactions().get(i).getVolumeObject().getTransaction2020()
@@ -126,7 +124,7 @@ public class BusinessApplicationRuleEngine {
 	}
 
 	private int retrieveUserTransactionVolumeScore(BusinessApplicationDetailsTO baTO) {
-		int count = 0;
+		long count = 0;
 		String userTransactionVolumeCount = "";
 		for (int i = 0; i < baTO.getUsers().size(); i++) {
 			count = count + baTO.getUsers().get(i).getVolumeObject().getTransaction2020()
@@ -160,7 +158,7 @@ public class BusinessApplicationRuleEngine {
 	}
 
 	private int retrievePasProductVolumeScore(BusinessApplicationDetailsTO baTO) {
-		int count = 0;
+		long count = 0;
 		String pasProductVolumeCount = "";
 		for (int i = 0; i < baTO.getProducts().size(); i++) {
 			count = count + baTO.getProducts().get(i).getVolumeObject().getTransaction2020();
