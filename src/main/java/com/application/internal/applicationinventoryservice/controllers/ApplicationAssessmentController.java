@@ -32,7 +32,7 @@ import com.application.internal.applicationinventoryservice.to.ServiceManagement
 import com.application.internal.applicationinventoryservice.to.VendorPackageTO;
 
 @RestController
-public class GreetingsController {
+public class ApplicationAssessmentController {
 
 	@Autowired
 	private DepartmentDAO departmentDAO;
