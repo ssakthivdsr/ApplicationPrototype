@@ -30,21 +30,19 @@ public class RegulatoryDAO {
 		return result;
 	}
 
-	
-	
 	public void storeAndUpdateRegulatoryDetails(List<RegulatoryTO> regulatoryTO) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String deleteRegulatory = "delete from assessment.regulatory_details where application_id=:id";
 		SqlParameterSource param = new MapSqlParameterSource("id", regulatoryTO.get(0).getApplicationId());
 		template.update(deleteRegulatory, param);
-		for (RegulatoryTO regulatoryValue:regulatoryTO) {
+		for (RegulatoryTO regulatoryValue : regulatoryTO) {
 			String sql = "insert into assessment.regulatory_details values(DEFAULT,:applicationId,:regulatoryValue)";
 			Map params = new HashMap();
 			params.put("applicationId", regulatoryValue.getApplicationId());
 			params.put("regulatoryValue", regulatoryValue.isRegulatoryValue());
 			template.update(sql, params);
-			}
-		
+		}
+
 	}
 
 }

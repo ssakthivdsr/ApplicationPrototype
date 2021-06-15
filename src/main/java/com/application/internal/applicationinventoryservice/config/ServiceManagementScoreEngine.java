@@ -5,8 +5,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-//import org.springframework.stereotype.Component;
-//import org.springframework.context.annotation.Configuration;
 @Component
 public class ServiceManagementScoreEngine {
 

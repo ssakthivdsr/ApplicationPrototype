@@ -38,7 +38,6 @@ public class ServiceManagementDAO {
 	public void storeAndupdateServiceManagementDetails(List<ServiceManagementTO> ServiceManagementTO)
 			throws SQLException {
 
-
 		if (countApplicationId(ServiceManagementTO) > 0) {
 			updateServiceManagementDetails(ServiceManagementTO);
 		} else {

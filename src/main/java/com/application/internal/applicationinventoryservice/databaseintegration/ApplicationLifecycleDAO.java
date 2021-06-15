@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import com.application.internal.applicationinventoryservice.to.ApplicationLifecycleTO;
+
 @Component
 public class ApplicationLifecycleDAO {
 
@@ -39,7 +40,7 @@ public class ApplicationLifecycleDAO {
 			storeApplicationLifecycleDetails(ApplicationLifecycleTO);
 		}
 	}
-	
+
 	public int countApplicationId(List<ApplicationLifecycleTO> ApplicationLifecycleTO) throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String queryCount = "select count (*) as count FROM assessment.application_life_cycle where application_id= :applicationId";
@@ -48,8 +49,9 @@ public class ApplicationLifecycleDAO {
 		int count = template.queryForObject(queryCount, countParam, Integer.class);
 		return count;
 	}
-	
-	public void storeApplicationLifecycleDetails(List<ApplicationLifecycleTO> ApplicationLifecycleTO) throws SQLException {
+
+	public void storeApplicationLifecycleDetails(List<ApplicationLifecycleTO> ApplicationLifecycleTO)
+			throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String sql = "insert into assessment.application_life_cycle values(DEFAULT,:applicationId,:questionId,:answer)";
 		for (int i = 0; i < 14; i++) {
@@ -60,8 +62,9 @@ public class ApplicationLifecycleDAO {
 			template.update(sql, param);
 		}
 	}
-	
-	public void updateApplicationLifecycleDetails(List<ApplicationLifecycleTO> ApplicationLifecycleTO) throws SQLException {
+
+	public void updateApplicationLifecycleDetails(List<ApplicationLifecycleTO> ApplicationLifecycleTO)
+			throws SQLException {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 		String updateQuery = "UPDATE assessment.application_life_cycle SET answer = :answer  WHERE question_id = :questionId and application_id = :applicationId";
 		for (int i = 0; i < 14; i++) {
@@ -72,5 +75,5 @@ public class ApplicationLifecycleDAO {
 			template.update(updateQuery, updateParam);
 		}
 	}
-	
+
 }

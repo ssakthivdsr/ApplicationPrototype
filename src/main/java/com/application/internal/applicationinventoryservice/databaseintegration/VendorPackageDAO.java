@@ -1,8 +1,6 @@
 package com.application.internal.applicationinventoryservice.databaseintegration;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
